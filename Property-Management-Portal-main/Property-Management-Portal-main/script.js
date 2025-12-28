@@ -521,7 +521,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Translation Configuration
 const translationConfig = {
-    apiKey: 'AIzaSyD4sUkx3h-NJuQYD-8iGKAya11iaBiPBQM', // Replace with your actual API key
+    apiKey: '--------------------------------', // hidden because of privacy reasons 
     supportedLanguages: {
         'en': 'English',
         'hi': 'हिंदी',
@@ -621,4 +621,5 @@ async function translateText(text, targetLang) {
 document.addEventListener('DOMContentLoaded', initializeTranslation);
 
 // Export functions for use in other files
+
 window.changeLanguage = changeLanguage; 
