@@ -1,0 +1,662 @@
+[
+  {
+    "property_id": "KA-BLR-20240501",
+    "data_source": "DORIS",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Manoj Shetty",
+        "ownership_type": "Single",
+        "mobile_number": "9845012345"
+      }
+    ],
+    "land_type": "Agricultural",
+    "property_type": "Paddy Field",
+    "area_sq_ft": 40000,
+    "survey_no": "54/A/2024",
+    "address": {
+      "property_address": "Survey No. 54, At Post Devanahalli, Taluka Bangalore North",
+      "village": "Devanahalli",
+      "taluka": "Bangalore North",
+      "district": "Bangalore",
+      "state": "Karnataka",
+      "pincode": "562110"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-0012",
+        "reason": "Sale",
+        "date": "2024-03-15"
+      }
+    ]
+  },
+  {
+    "property_id": "TN-CHE-20240502",
+    "data_source": "CERSAI",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Sujatha R.",
+        "ownership_type": "Single",
+        "mobile_number": "9944123456"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Residential Plot",
+    "area_sq_ft": 2400,
+    "survey_no": "102/B/2024",
+    "address": {
+      "property_address": "Plot No. 102, Anna Nagar East, Taluka Egmore",
+      "village": "Anna Nagar",
+      "taluka": "Egmore",
+      "district": "Chennai",
+      "state": "Tamil Nadu",
+      "pincode": "600102"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2023-8890",
+        "reason": "Inheritance",
+        "date": "2023-11-10"
+      }
+    ]
+  },
+  {
+    "property_id": "DL-NDW-20240503",
+    "data_source": "DLR",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Raj Malhotra",
+        "ownership_type": "Single",
+        "mobile_number": "9811234567"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Commercial Plot",
+    "area_sq_ft": 1500,
+    "survey_no": "33/C/2024",
+    "address": {
+      "property_address": "Plot No. 33, Connaught Place, New Delhi",
+      "village": "Connaught Place",
+      "taluka": "Central",
+      "district": "New Delhi",
+      "state": "Delhi",
+      "pincode": "110001"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "Case Pending",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2022-7788",
+        "reason": "Gift",
+        "date": "2022-08-05"
+      }
+    ]
+  },
+  {
+    "property_id": "WB-KOL-20240504",
+    "data_source": "MCA",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Anirban Ghosh",
+        "ownership_type": "Single",
+        "mobile_number": "9830345678"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Residential Apartment",
+    "area_sq_ft": 1300,
+    "survey_no": "12/D/2024",
+    "address": {
+      "property_address": "Flat 12B, Salt Lake Sector V",
+      "village": "Salt Lake",
+      "taluka": "Bidhannagar",
+      "district": "Kolkata",
+      "state": "West Bengal",
+      "pincode": "700091"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-3021",
+        "reason": "Sale",
+        "date": "2024-01-25"
+      }
+    ]
+  },
+  {
+    "property_id": "GJ-AHD-20240505",
+    "data_source": "DORIS",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Hetal Patel",
+        "ownership_type": "Single",
+        "mobile_number": "9898456789"
+      }
+    ],
+    "land_type": "Agricultural",
+    "property_type": "Cotton Farm",
+    "area_sq_ft": 52000,
+    "survey_no": "210/E/2024",
+    "address": {
+      "property_address": "Survey No. 210, At Post Bavla, Taluka Bavla",
+      "village": "Bavla",
+      "taluka": "Bavla",
+      "district": "Ahmedabad",
+      "state": "Gujarat",
+      "pincode": "382220"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "Case Pending",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2023-5123",
+        "reason": "Partition",
+        "date": "2023-09-19"
+      }
+    ]
+  },
+  {
+    "property_id": "RJ-JPR-20240506",
+    "data_source": "CERSAI",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Meena Sharma",
+        "ownership_type": "Single",
+        "mobile_number": "9829567890"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Residential Plot",
+    "area_sq_ft": 3000,
+    "survey_no": "47/F/2024",
+    "address": {
+      "property_address": "Plot No. 47, Vaishali Nagar",
+      "village": "Vaishali Nagar",
+      "taluka": "Sanganer",
+      "district": "Jaipur",
+      "state": "Rajasthan",
+      "pincode": "302021"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-6123",
+        "reason": "Gift",
+        "date": "2024-02-11"
+      }
+    ]
+  },
+  {
+    "property_id": "MP-BPL-20240507",
+    "data_source": "DLR",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Rahul Dubey",
+        "ownership_type": "Single",
+        "mobile_number": "9755678901"
+      }
+    ],
+    "land_type": "Agricultural",
+    "property_type": "Soybean Farm",
+    "area_sq_ft": 45000,
+    "survey_no": "112/G/2024",
+    "address": {
+      "property_address": "Khasra No. 112, Village Kolar",
+      "village": "Kolar",
+      "taluka": "Huzur",
+      "district": "Bhopal",
+      "state": "Madhya Pradesh",
+      "pincode": "462042"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2023-2345",
+        "reason": "Sale",
+        "date": "2023-12-18"
+      }
+    ]
+  },
+  {
+    "property_id": "MH-NAG-20240508",
+    "data_source": "MCA",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Neha Deshmukh",
+        "ownership_type": "Single",
+        "mobile_number": "9422789012"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Commercial Shop",
+    "area_sq_ft": 1200,
+    "survey_no": "5/H/2024",
+    "address": {
+      "property_address": "Shop No. 5, Sitabuldi Market",
+      "village": "Sitabuldi",
+      "taluka": "Nagpur",
+      "district": "Nagpur",
+      "state": "Maharashtra",
+      "pincode": "440012"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "Case Pending",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2022-9988",
+        "reason": "Partition",
+        "date": "2022-10-09"
+      }
+    ]
+  },
+  {
+    "property_id": "OR-BBS-20240509",
+    "data_source": "DORIS",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Prakash Nayak",
+        "ownership_type": "Single",
+        "mobile_number": "9437890123"
+      }
+    ],
+    "land_type": "Agricultural",
+    "property_type": "Rice Paddy",
+    "area_sq_ft": 38000,
+    "survey_no": "89/I/2024",
+    "address": {
+      "property_address": "Survey No. 89, Chandaka Area",
+      "village": "Chandaka",
+      "taluka": "Bhubaneswar",
+      "district": "Khurda",
+      "state": "Odisha",
+      "pincode": "751021"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2023-7865",
+        "reason": "Inheritance",
+        "date": "2023-05-13"
+      }
+    ]
+  },
+  {
+    "property_id": "AS-GHY-20240510",
+    "data_source": "CERSAI",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Ankita Deka",
+        "ownership_type": "Single",
+        "mobile_number": "9954901234"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Residential House",
+    "area_sq_ft": 1800,
+    "survey_no": "16/J/2024",
+    "address": {
+      "property_address": "House No. 16, Beltola Tiniali",
+      "village": "Beltola",
+      "taluka": "Guwahati",
+      "district": "Kamrup Metropolitan",
+      "state": "Assam",
+      "pincode": "781028"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-3456",
+        "reason": "Sale",
+        "date": "2024-03-08"
+      }
+    ]
+  },
+  {
+    "property_id": "UP-LKO-20240511",
+    "data_source": "DLR",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Aditya Singh",
+        "ownership_type": "Single",
+        "mobile_number": "9415012345"
+      }
+    ],
+    "land_type": "Agricultural",
+    "property_type": "Wheat Farm",
+    "area_sq_ft": 65000,
+    "survey_no": "145/K/2024",
+    "address": {
+      "property_address": "Khasra No. 145, Mohanlalganj",
+      "village": "Mohanlalganj",
+      "taluka": "Lucknow South",
+      "district": "Lucknow",
+      "state": "Uttar Pradesh",
+      "pincode": "226301"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-1122",
+        "reason": "Inheritance",
+        "date": "2024-01-20"
+      }
+    ]
+  },
+  {
+    "property_id": "KL-TVM-20240512",
+    "data_source": "MCA",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Thomas Kurian",
+        "ownership_type": "Single",
+        "mobile_number": "9447123456"
+      }
+    ],
+    "land_type": "Agricultural",
+    "property_type": "Rubber Plantation",
+    "area_sq_ft": 43000,
+    "survey_no": "78/L/2024",
+    "address": {
+      "property_address": "Survey No. 78, Nedumangad",
+      "village": "Nedumangad",
+      "taluka": "Nedumangad",
+      "district": "Thiruvananthapuram",
+      "state": "Kerala",
+      "pincode": "695541"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2023-9876",
+        "reason": "Sale",
+        "date": "2023-12-05"
+      }
+    ]
+  },
+  {
+    "property_id": "PB-ASR-20240513",
+    "data_source": "DORIS",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Gurpreet Singh",
+        "ownership_type": "Single",
+        "mobile_number": "9814234567"
+      }
+    ],
+    "land_type": "Agricultural",
+    "property_type": "Rice Farm",
+    "area_sq_ft": 75000,
+    "survey_no": "234/M/2024",
+    "address": {
+      "property_address": "Khasra No. 234, Village Ajnala",
+      "village": "Ajnala",
+      "taluka": "Ajnala",
+      "district": "Amritsar",
+      "state": "Punjab",
+      "pincode": "143109"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-4455",
+        "reason": "Partition",
+        "date": "2024-02-28"
+      }
+    ]
+  },
+  {
+    "property_id": "TS-HYD-20240514",
+    "data_source": "CERSAI",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Ravi Kumar",
+        "ownership_type": "Single",
+        "mobile_number": "9848345678"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Commercial Complex",
+    "area_sq_ft": 8500,
+    "survey_no": "56/N/2024",
+    "address": {
+      "property_address": "Plot No. 56, Hitech City",
+      "village": "Madhapur",
+      "taluka": "Serilingampally",
+      "district": "Hyderabad",
+      "state": "Telangana",
+      "pincode": "500081"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-7788",
+        "reason": "Sale",
+        "date": "2024-03-10"
+      }
+    ]
+  },
+  {
+    "property_id": "JH-RNC-20240515",
+    "data_source": "DLR",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Priya Kumari",
+        "ownership_type": "Single",
+        "mobile_number": "9934456789"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Residential Plot",
+    "area_sq_ft": 2800,
+    "survey_no": "91/O/2024",
+    "address": {
+      "property_address": "Plot No. 91, Harmu Housing Colony",
+      "village": "Harmu",
+      "taluka": "Ranchi",
+      "district": "Ranchi",
+      "state": "Jharkhand",
+      "pincode": "834002"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-3344",
+        "reason": "Gift",
+        "date": "2024-01-15"
+      }
+    ]
+  },
+  {
+    "property_id": "HR-GGN-20240516",
+    "data_source": "MCA",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Amit Sharma",
+        "ownership_type": "Single",
+        "mobile_number": "9812567890"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Industrial Plot",
+    "area_sq_ft": 12000,
+    "survey_no": "167/P/2024",
+    "address": {
+      "property_address": "Plot No. 167, IMT Manesar",
+      "village": "Manesar",
+      "taluka": "Manesar",
+      "district": "Gurugram",
+      "state": "Haryana",
+      "pincode": "122051"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "Case Pending",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2023-6677",
+        "reason": "Sale",
+        "date": "2023-11-30"
+      }
+    ]
+  },
+  {
+    "property_id": "BR-PAT-20240517",
+    "data_source": "DORIS",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Rajesh Kumar",
+        "ownership_type": "Single",
+        "mobile_number": "9661678901"
+      }
+    ],
+    "land_type": "Agricultural",
+    "property_type": "Maize Farm",
+    "area_sq_ft": 48000,
+    "survey_no": "189/Q/2024",
+    "address": {
+      "property_address": "Khasra No. 189, Danapur",
+      "village": "Danapur",
+      "taluka": "Danapur",
+      "district": "Patna",
+      "state": "Bihar",
+      "pincode": "801503"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-5566",
+        "reason": "Inheritance",
+        "date": "2024-02-05"
+      }
+    ]
+  },
+  {
+    "property_id": "HP-SML-20240518",
+    "data_source": "CERSAI",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Vikram Thakur",
+        "ownership_type": "Single",
+        "mobile_number": "9418789012"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Hotel Property",
+    "area_sq_ft": 15000,
+    "survey_no": "45/R/2024",
+    "address": {
+      "property_address": "Plot No. 45, Mall Road",
+      "village": "Shimla City",
+      "taluka": "Shimla Urban",
+      "district": "Shimla",
+      "state": "Himachal Pradesh",
+      "pincode": "171001"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-8899",
+        "reason": "Sale",
+        "date": "2024-03-20"
+      }
+    ]
+  },
+  {
+    "property_id": "UK-DDN-20240519",
+    "data_source": "DLR",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Deepak Rawat",
+        "ownership_type": "Single",
+        "mobile_number": "9412890123"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Resort Property",
+    "area_sq_ft": 25000,
+    "survey_no": "123/S/2024",
+    "address": {
+      "property_address": "Plot No. 123, Mussoorie Road",
+      "village": "Rajpur",
+      "taluka": "Dehradun",
+      "district": "Dehradun",
+      "state": "Uttarakhand",
+      "pincode": "248009"
+    },
+    "loan_status": "No Loan",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-2233",
+        "reason": "Sale",
+        "date": "2024-01-30"
+      }
+    ]
+  },
+  {
+    "property_id": "GA-PJI-20240520",
+    "data_source": "MCA",
+    "owner_details": [
+      {
+        "owner_no": "1st Owner",
+        "name": "Maria Fernandes",
+        "ownership_type": "Single",
+        "mobile_number": "9822901234"
+      }
+    ],
+    "land_type": "Non-Agricultural",
+    "property_type": "Beach Resort",
+    "area_sq_ft": 18000,
+    "survey_no": "67/T/2024",
+    "address": {
+      "property_address": "Survey No. 67, Colva Beach Road",
+      "village": "Colva",
+      "taluka": "Salcete",
+      "district": "South Goa",
+      "state": "Goa",
+      "pincode": "403708"
+    },
+    "loan_status": "Loan Active",
+    "legal_case": "No Case",
+    "mutation_entry": [
+      {
+        "mutation_id": "MT-2024-1133",
+        "reason": "Sale",
+        "date": "2024-02-15"
+      }
+    ]
+  }
+] 

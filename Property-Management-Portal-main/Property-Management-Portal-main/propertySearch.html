@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Search - BhuSamriddhi</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .search-section {
+            background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+            padding: 3rem 0;
+            color: white;
+        }
+
+        .search-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        }
+
+        .filter-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .property-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .property-image {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .property-details {
+            padding: 1.5rem;
+        }
+
+        .property-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0066ff;
+        }
+
+        .property-location {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .property-features {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .search-input {
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border: 1px solid #dee2e6;
+        }
+
+        .search-input:focus {
+            border-color: #0066ff;
+            box-shadow: 0 0 0 0.2rem rgba(0,102,255,0.25);
+        }
+
+        .btn-search {
+            background: linear-gradient(to right, #0066ff, #0052cc);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-search:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,102,255,0.2);
+        }
+
+        .filter-label {
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .range-value {
+            font-weight: 600;
+            color: #0066ff;
+        }
+
+        .logo-container {
+            width: 35px;
+            height: 35px;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .brand-tagline {
+            font-size: 0.65rem;
+            color: #666;
+        }
+
+        /* Navigation adjustments */
+        .nav-right {
+            margin-left: 0 !important;
+        }
+        
+        .profile-btn {
+            margin: 0 !important;
+            padding: 0.5rem 0.8rem;
+            background-color: #0066ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+        }
+
+        .profile-btn:hover {
+            background-color: #0052cc;
+            color: white;
+        }
+
+        /* Ensure navbar items are tightly packed */
+        .navbar-nav {
+            gap: 0;
+            margin-right: 0 !important;
+        }
+
+        .nav-item {
+            margin: 0;
+        }
+
+        .nav-link {
+            padding: 0.5rem 0.6rem !important;
+        }
+
+        /* Remove any auto margins */
+        .navbar-nav.mx-auto {
+            margin-right: 0 !important;
+        }
+
+        /* Ensure flex items are packed together */
+        .navbar .container {
+            gap: 0;
+        }
+
+        .collapse.navbar-collapse {
+            gap: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="main.html">
+                    <div class="logo-container">
+                        <img src="logo.jpg" alt="BhuSamriddhi Logo" class="logo-img">
+                    </div>
+                    <div class="brand-text ms-2">
+                        <span class="brand-name">BhuSamriddhi</span>
+                        <span class="brand-tagline">Streamlining Urban & Rural Data Access</span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="main.html">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-building"></i> Properties
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item active" href="propertySearch.html"><i class="fas fa-search"></i> Search Properties</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-signature"></i> Register Property</a></li>
+                                <li><a class="dropdown-item" href="property-maps.html"><i class="fas fa-map-marked-alt"></i> Property Maps</a></li>
+                                <li><a class="dropdown-item" href="market-analysis.html"><i class="fas fa-chart-area"></i> Market Analysis</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-file-alt"></i> Documents
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Upload Documents</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-download"></i> Download Forms</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-check-circle"></i> Verify Documents</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="nav-right d-flex align-items-center">
+                        <button class="btn profile-btn" data-bs-toggle="modal" data-bs-target="#profileModal">
+                            <i class="fas fa-user"></i> Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Section -->
+    <div class="search-section py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="search-container">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="text" 
+                                       id="locationSearch" 
+                                       class="form-control" 
+                                       placeholder="Enter location..."
+                                       oninput="handleSearch()">
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="propertyType" onchange="handleSearch()">
+                                    <option value="">All Property Types</option>
+                                    <option value="Apartment">Apartment</option>
+                                    <option value="Villa">Villa</option>
+                                    <option value="Plot">Plot</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select" id="priceRange" onchange="handleSearch()">
+                                    <option value="">All Price Ranges</option>
+                                    <option value="0-2000000">Under 20 Lakhs</option>
+                                    <option value="2000000-4000000">20-40 Lakhs</option>
+                                    <option value="4000000-6000000">40-60 Lakhs</option>
+                                    <option value="6000000-8000000">60-80 Lakhs</option>
+                                    <option value="8000000">Above 80 Lakhs</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary w-100" onclick="handleSearch()">
+                                    <i class="fas fa-search me-2"></i>Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Property Listings -->
+    <div class="property-listings py-5">
+        <div class="container">
+            <div class="row" id="propertyListings">
+                <!-- Property cards will be dynamically inserted here -->
+            </div>
+            <div id="noResults" class="text-center d-none">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No properties found matching your search criteria.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        let propertyData = [];
+        
+        // Load property data
+        async function loadPropertyData() {
+            try {
+                const response = await fetch('geo_land_registry_mock_data.json');
+                propertyData = await response.json();
+                handleSearch(); // Initial display of all properties
+            } catch (error) {
+                console.error('Error loading property data:', error);
+                document.getElementById('propertyListings').innerHTML = `
+                    <div class="col-12">
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            Error loading property data. Please try again later.
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Handle search functionality
+        function handleSearch() {
+            const locationQuery = document.getElementById('locationSearch').value.toLowerCase();
+            const propertyType = document.getElementById('propertyType').value;
+            const priceRange = document.getElementById('priceRange').value;
+
+            // Filter properties based on search criteria
+            let filteredProperties = propertyData.filter(property => {
+                const locationMatch = property.location.toLowerCase().includes(locationQuery);
+                const typeMatch = !propertyType || property.propertyType === propertyType;
+                const priceMatch = checkPriceRange(property.price, priceRange);
+                
+                return locationMatch && typeMatch && priceMatch;
+            });
+
+            // Display filtered properties
+            displayProperties(filteredProperties);
+        }
+
+        // Check if property price falls within selected range
+        function checkPriceRange(price, range) {
+            if (!range) return true;
+            
+            const [min, max] = range.split('-').map(Number);
+            if (!max) return price >= min;
+            return price >= min && price < max;
+        }
+
+        // Display properties
+        function displayProperties(properties) {
+            const propertyListings = document.getElementById('propertyListings');
+            const noResults = document.getElementById('noResults');
+            
+            if (properties.length === 0) {
+                propertyListings.innerHTML = '';
+                noResults.classList.remove('d-none');
+                return;
+            }
+
+            noResults.classList.add('d-none');
+            propertyListings.innerHTML = properties.map(property => `
+                <div class="col-md-4 mb-4">
+                    <div class="property-card">
+                        <img src="${property.image || 'https://via.placeholder.com/400x200'}" 
+                             alt="${property.propertyType}" 
+                             class="property-image">
+                        <div class="property-details">
+                            <div class="property-price">₹${formatPrice(property.price)}</div>
+                            <h5 class="property-type mt-2">${property.propertyType}</h5>
+                            <p class="property-location">
+                                <i class="fas fa-map-marker-alt me-2"></i>${property.location}
+                            </p>
+                            <div class="property-features">
+                                <span><i class="fas fa-vector-square me-2"></i>${property.area} sq.ft</span>
+                                <span><i class="fas fa-calendar me-2"></i>${property.registrationDate}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Format price to Indian currency format
+        function formatPrice(price) {
+            return new Intl.NumberFormat('en-IN', {
+                maximumSignificantDigits: 3
+            }).format(price);
+        }
+
+        // Load data when page loads
+        loadPropertyData();
+    </script>
+    
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Login/Register Button -->
+                    <div class="text-center mb-4">
+                        <button class="btn btn-primary px-4">
+                            <i class="fas fa-sign-in-alt me-2"></i> LOGIN / REGISTER
+                        </button>
+                    </div>
+
+                    <!-- Profile Options -->
+                    <div class="d-grid gap-3">
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-plus-circle me-2"></i> Post Property Free</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-clipboard-list me-2"></i> Requested Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-phone-alt me-2"></i> Contacted Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-file-contract me-2"></i> Issued Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-heart me-2"></i> Shortlisted Properties</span>
+                        </a>
+                    </div>
+
+                    <!-- Signup Link -->
+                    <div class="text-center mt-4">
+                        <p class="mb-0">New to Integrated Property Search? 
+                            <a href="#" class="text-primary text-decoration-none">
+                                <i class="fas fa-user-plus me-1"></i>Signup
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

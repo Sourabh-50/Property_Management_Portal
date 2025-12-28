@@ -1,0 +1,95 @@
+[
+  {
+    "registryId": "REG001",
+    "propertyType": "Apartment",
+    "location": "Mumbai, Maharashtra",
+    "price": 15000000,
+    "area": 1200,
+    "registrationDate": "2024-01-15",
+    "image": "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400"
+  },
+  {
+    "registryId": "REG002",
+    "propertyType": "Villa",
+    "location": "Bangalore, Karnataka",
+    "price": 25000000,
+    "area": 2500,
+    "registrationDate": "2024-02-01",
+    "image": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400"
+  },
+  {
+    "registryId": "REG003",
+    "propertyType": "Plot",
+    "location": "Ludhiana, Punjab",
+    "price": 5000000,
+    "area": 10000,
+    "registrationDate": "2024-02-15",
+    "image": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=400"
+  },
+  {
+    "registryId": "REG004",
+    "propertyType": "Apartment",
+    "location": "Chennai, Tamil Nadu",
+    "price": 18000000,
+    "area": 1500,
+    "registrationDate": "2024-03-01",
+    "image": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=400"
+  },
+  {
+    "registryId": "REG005",
+    "propertyType": "Commercial",
+    "location": "Ahmedabad, Gujarat",
+    "price": 35000000,
+    "area": 5000,
+    "registrationDate": "2024-03-15",
+    "image": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=400"
+  }
+
+
+,
+  {
+    "registryId": "REG006",
+    "propertyType": "Villa",
+    "location": "Hyderabad, Telangana", 
+    "price": 28000000,
+    "area": 3000,
+    "registrationDate": "2024-03-20",
+    "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400"
+  },
+  {
+    "registryId": "REG007", 
+    "propertyType": "Apartment",
+    "location": "Pune, Maharashtra",
+    "price": 12000000,
+    "area": 1100,
+    "registrationDate": "2024-03-25",
+    "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400"
+  },
+  {
+    "registryId": "REG008",
+    "propertyType": "Plot",
+    "location": "Jaipur, Rajasthan",
+    "price": 7000000,
+    "area": 8000,
+    "registrationDate": "2024-04-01",
+    "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=400"
+  },
+  {
+    "registryId": "REG009",
+    "propertyType": "Commercial",
+    "location": "Kolkata, West Bengal",
+    "price": 42000000,
+    "area": 6000,
+    "registrationDate": "2024-04-05",
+    "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=400"
+  },
+  {
+    "registryId": "REG010",
+    "propertyType": "Villa",
+    "location": "Goa",
+    "price": 45000000,
+    "area": 4000,
+    "registrationDate": "2024-04-10",
+    "image": "https://images.unsplash.com/photo-1600607688969-a5bfcd646154?w=400"
+  }
+]

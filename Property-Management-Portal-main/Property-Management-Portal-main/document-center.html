@@ -1,0 +1,1710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Center - Unified Property Input</title>
+    <style>
+        /* Preload background image */
+        body::after {
+            position: absolute;
+            width: 0;
+            height: 0;
+            overflow: hidden;
+            z-index: -1;
+            content: url("bg.jpg");
+        }
+    </style>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Navbar Styles */
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .logo-container {
+            width: 35px;
+            height: 35px;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+        .brand-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #333;
+        }
+        .brand-tagline {
+            font-size: 0.65rem;
+            color: #666;
+        }
+
+        /* Document Center Styles */
+        .document-section {
+            background: #fff;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .document-section:hover {
+            transform: translateY(-5px);
+        }
+        .section-title {
+            color: #1a237e;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .document-list {
+            list-style: none;
+            padding: 0;
+        }
+        .document-item {
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        .document-item:hover {
+            background-color: #f8f9fa;
+            border-color: #0d6efd;
+        }
+        .document-item a {
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .document-item i {
+            color: #0d6efd;
+        }
+        .page-header {
+            position: relative;
+            color: white;
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("https://c8.alamy.com/comp/PYTTGW/buy-house-real-estate-concept-different-offers-of-property-online-hands-typing-on-computer-as-background-PYTTGW.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.9;
+            z-index: -2;
+        }
+
+        .page-header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(13, 110, 253, 0.8), rgba(10, 88, 202, 0.9));
+            z-index: -1;
+        }
+
+        .page-header .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .page-header .lead {
+            font-size: 1.25rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Add subtle animation to the background */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .page-header {
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="main.html">
+                    <div class="logo-container">
+                        <img src="logo.jpg" alt="Unified Property Input Logo" class="logo-img">
+                    </div>
+                    <div class="brand-text ms-2">
+                        <span class="brand-name">Unified Property Input</span>
+                        <span class="brand-tagline">Streamlining Urban & Rural Data Access</span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="main.html">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-building"></i> Properties
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item" href="propertySearch.html"><i class="fas fa-search"></i> Search Properties</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-signature"></i> Register Property</a></li>
+                                <li><a class="dropdown-item" href="property-maps.html"><i class="fas fa-map-marked-alt"></i> Property Maps</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-chart-area"></i> Market Analysis</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-file-alt"></i> Documents
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Upload Documents</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-download"></i> Download Forms</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-check-circle"></i> Verify Documents</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <i class="fas fa-chart-line"></i> Analytics
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="nav-right d-flex align-items-center">
+                        <button class="btn profile-btn" data-bs-toggle="modal" data-bs-target="#profileModal">
+                            <i class="fas fa-user"></i> Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1><i class="fas fa-folder-open me-2"></i>Document Center</h1>
+            <p class="lead">Access all important documents, forms, and guidelines in one place</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+        <!-- Forms & Applications Section -->
+        <div class="document-section">
+            <h2 class="section-title">
+                <i class="fas fa-file-alt"></i>
+                Forms & Applications
+            </h2>
+            <ul class="document-list">
+                <li class="document-item">
+                    <a href="#" onclick="openLandRecordForm(event)">
+                        <i class="fas fa-file-pdf"></i>
+                        Land record forms (DoLR)
+                    </a>
+                </li>
+                <li class="document-item">
+                    <a href="#" onclick="openCompanyRegistrationForm(event)">
+                        <i class="fas fa-file-pdf"></i>
+                        Company registration forms (MCA)
+                    </a>
+                </li>
+                <li class="document-item">
+                    <a href="#" onclick="openChargeRegistrationForm(event)">
+                        <i class="fas fa-file-pdf"></i>
+                        Charge registration forms (CERSAI)
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- User Guides & Manuals Section -->
+        <div class="document-section">
+            <h2 class="section-title">
+                <i class="fas fa-book"></i>
+                User Guides & Manuals
+            </h2>
+            <ul class="document-list">
+                <li class="document-item">
+                    <a href="#" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        Step-by-step user manuals
+                    </a>
+                </li>
+                <li class="document-item">
+                    <a href="#" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        How-to documents for filing/searching/registering
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Policy & Scheme Documents Section -->
+        <div class="document-section">
+            <h2 class="section-title">
+                <i class="fas fa-scroll"></i>
+                Policy & Scheme Documents
+            </h2>
+            <ul class="document-list">
+                <li class="document-item">
+                    <a href="#" onclick="openSchemeGuidelinesModal(event)">
+                        <i class="fas fa-file-pdf"></i>
+                        Government scheme guidelines (DoLR)
+                    </a>
+                </li>
+                <li class="document-item">
+                    <a href="#" onclick="openSchemeApplicationForm(event)">
+                        <i class="fas fa-file-pdf"></i>
+                        Government Scheme Application Form (DoLR)
+                    </a>
+                </li>
+                <li class="document-item">
+                    <a href="#" target="_blank">
+                        <i class="fas fa-file-pdf"></i>
+                        Mediation & compliance policies (MCA)
+                    </a>
+                </li>
+                <li class="document-item">
+                    <a href="#" onclick="openMediationComplianceForm(event)">
+                        <i class="fas fa-file-pdf"></i>
+                        Mediation & Compliance Application Form (MCA)
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Login/Register Button -->
+                    <div class="text-center mb-4">
+                        <button class="btn btn-primary px-4">
+                            <i class="fas fa-sign-in-alt me-2"></i> LOGIN / REGISTER
+                        </button>
+                    </div>
+
+                    <!-- Profile Options -->
+                    <div class="d-grid gap-3">
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-plus-circle me-2"></i> Post Property Free</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-clipboard-list me-2"></i> Requested Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-phone-alt me-2"></i> Contacted Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-file-contract me-2"></i> Issued Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-heart me-2"></i> Shortlisted Properties</span>
+                        </a>
+                    </div>
+
+                    <!-- Signup Link -->
+                    <div class="text-center mt-4">
+                        <p class="mb-0">New to Integrated Property Search? 
+                            <a href="#" class="text-primary text-decoration-none">
+                                <i class="fas fa-user-plus me-1"></i>Signup
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Profile Modal Styles */
+        #profileModal .modal-content {
+            border-radius: 12px;
+            border: none;
+        }
+
+        #profileModal .modal-header {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 1.5rem;
+        }
+
+        #profileModal .modal-title {
+            font-weight: 600;
+            color: #333;
+        }
+
+        #profileModal .modal-body {
+            padding: 1.5rem;
+        }
+
+        #profileModal .btn-outline-primary {
+            text-align: center;
+            padding: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        #profileModal .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        #profileModal .btn-primary {
+            padding: 0.8rem 2rem;
+            font-weight: 500;
+            border-radius: 8px;
+        }
+    </style>
+
+    <!-- Land Record Form Modal -->
+    <div class="modal fade" id="landRecordModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Application for Mutation of Land Records</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="landRecordForm">
+                        <!-- Applicant Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Applicant Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Full Name of Applicant</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Father's / Husband's Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Aadhaar Number</label>
+                                    <input type="text" class="form-control" pattern="[0-9]{12}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Mobile Number</label>
+                                    <input type="tel" class="form-control" pattern="[0-9]{10}" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Address</label>
+                                    <textarea class="form-control" rows="2" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email ID (if any)</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Land Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Land Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Land Parcel/Plot Number</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Survey / Khasra Number</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Area (in hectares/sq. meters)</label>
+                                    <input type="number" step="0.01" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Current Owner Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label d-block">Type of Land</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="landType" value="agricultural" required>
+                                        <label class="form-check-label">Agricultural</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="landType" value="residential">
+                                        <label class="form-check-label">Residential</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="landType" value="commercial">
+                                        <label class="form-check-label">Commercial</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reason for Mutation -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Reason for Mutation</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mutationReason" value="inheritance" required>
+                                        <label class="form-check-label">Inheritance (Attach legal heir certificate)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mutationReason" value="sale">
+                                        <label class="form-check-label">Sale/Purchase (Attach registered sale deed)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mutationReason" value="gift">
+                                        <label class="form-check-label">Gift (Attach gift deed)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mutationReason" value="partition">
+                                        <label class="form-check-label">Partition</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="mutationReason" value="other">
+                                        <label class="form-check-label">Other</label>
+                                    </div>
+                                    <div class="mt-2" id="otherReasonContainer" style="display: none;">
+                                        <input type="text" class="form-control" placeholder="Specify other reason">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">List of Documents Attached</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Copy of registered deed</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Proof of identity (Aadhaar, PAN, etc.)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Previous land record copy</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label">No objection certificate (if applicable)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label">Legal heir certificate (if applicable)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date and Signature -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Date and Signature</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Date of Submission</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Digital Signature</label>
+                                    <div class="border rounded p-3 text-center" id="signatureArea">
+                                        <canvas id="signatureCanvas" width="400" height="200" 
+                                                style="border: 1px solid #ddd; width: 100%; height: 200px;"></canvas>
+                                        <div class="mt-2">
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="clearSignature()">Clear Signature</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="printForm()">Print Form</button>
+                    <button type="submit" form="landRecordForm" class="btn btn-success">Submit Form</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        /* Form Styles */
+        .form-section-title {
+            color: #0d6efd;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid #ced4da;
+            padding: 0.5rem 0.75rem;
+        }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        }
+
+        .form-check-input:checked {
+            background-color: #0d6efd;
+            border-color: #0d6efd;
+        }
+
+        #landRecordModal .modal-content {
+            border-radius: 12px;
+            border: none;
+        }
+
+        #landRecordModal .modal-header {
+            background: #f8f9fa;
+            border-radius: 12px 12px 0 0;
+        }
+
+        #landRecordModal .modal-footer {
+            background: #f8f9fa;
+            border-radius: 0 0 12px 12px;
+        }
+    </style>
+
+    <script>
+        // Initialize signature pad
+        let signaturePad;
+
+        function openLandRecordForm(event) {
+            event.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('landRecordModal'));
+            modal.show();
+
+            // Initialize signature pad after modal is shown
+            setTimeout(() => {
+                const canvas = document.getElementById('signatureCanvas');
+                signaturePad = new SignaturePad(canvas, {
+                    backgroundColor: 'rgb(255, 255, 255)'
+                });
+            }, 500);
+        }
+
+        function clearSignature() {
+            if (signaturePad) {
+                signaturePad.clear();
+            }
+        }
+
+        function printForm() {
+            window.print();
+        }
+
+        // Show/hide other reason input
+        document.querySelectorAll('input[name="mutationReason"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const otherContainer = document.getElementById('otherReasonContainer');
+                otherContainer.style.display = this.value === 'other' ? 'block' : 'none';
+            });
+        });
+
+        // Form submission
+        document.getElementById('landRecordForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Form submitted successfully!');
+        });
+    </script>
+
+    <!-- Include SignaturePad library -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+
+    <!-- Add Company Registration Modal after the Land Record Modal -->
+    <!-- Company Registration Form Modal -->
+    <div class="modal fade" id="companyRegistrationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Application for Company Registration (MCA)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="companyRegistrationForm">
+                        <!-- Applicant Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Applicant Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Full Name of Applicant</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Father's / Husband's Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Aadhaar Number</label>
+                                    <input type="text" class="form-control" pattern="[0-9]{12}" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Address</label>
+                                    <textarea class="form-control" rows="2" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Mobile Number</label>
+                                    <input type="tel" class="form-control" pattern="[0-9]{10}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email ID</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Company Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Company Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Proposed Company Name (1st Preference)</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Proposed Company Name (2nd Preference)</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Type of Company</label>
+                                    <select class="form-select" required>
+                                        <option value="">Select Type</option>
+                                        <option value="private">Private Limited Company</option>
+                                        <option value="public">Public Limited Company</option>
+                                        <option value="opc">One Person Company</option>
+                                        <option value="llp">Limited Liability Partnership</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Business Activity</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Registered Office Address</label>
+                                    <textarea class="form-control" rows="2" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Authorized Capital (in Rs.)</label>
+                                    <input type="number" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Director Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Director Details</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>DIN/PAN</th>
+                                                    <th>Address</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td><input type="text" class="form-control" required></td>
+                                                    <td><input type="text" class="form-control" required></td>
+                                                    <td><input type="text" class="form-control" required></td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input type="text" class="form-control"></td>
+                                                    <td><input type="text" class="form-control"></td>
+                                                    <td><input type="text" class="form-control"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents Required -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">List of Documents Required</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Identity Proof of Directors (Aadhaar/PAN)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Address Proof of Directors</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Passport Size Photographs</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">NOC from Property Owner (for registered office)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Digital Signatures of Directors</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Date and Signature -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Date and Signature</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Date of Submission</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Digital Signature</label>
+                                    <div class="border rounded p-3 text-center" id="companySignatureArea">
+                                        <canvas id="companySignatureCanvas" width="400" height="200" 
+                                                style="border: 1px solid #ddd; width: 100%; height: 200px;"></canvas>
+                                        <div class="mt-2">
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="clearCompanySignature()">Clear Signature</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="printCompanyForm()">Print Form</button>
+                    <button type="submit" form="companyRegistrationForm" class="btn btn-success">Submit Form</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to your existing JavaScript -->
+    <script>
+        // Company Registration Form Functions
+        let companySignaturePad;
+
+        function openCompanyRegistrationForm(event) {
+            event.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('companyRegistrationModal'));
+            modal.show();
+
+            // Initialize signature pad after modal is shown
+            setTimeout(() => {
+                const canvas = document.getElementById('companySignatureCanvas');
+                companySignaturePad = new SignaturePad(canvas, {
+                    backgroundColor: 'rgb(255, 255, 255)'
+                });
+            }, 500);
+        }
+
+        function clearCompanySignature() {
+            if (companySignaturePad) {
+                companySignaturePad.clear();
+            }
+        }
+
+        function printCompanyForm() {
+            window.print();
+        }
+
+        // Form submission
+        document.getElementById('companyRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Company Registration Form submitted successfully!');
+        });
+    </script>
+
+    <!-- Add Charge Registration Modal before the closing body tag -->
+    <!-- Charge Registration Form Modal -->
+    <div class="modal fade" id="chargeRegistrationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Application for Charge Registration (CERSAI)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="chargeRegistrationForm">
+                        <!-- Entity/Applicant Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Entity/Applicant Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Name of the Entity / Applicant</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Type of Entity</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="entityType" value="individual" required>
+                                        <label class="form-check-label">Individual</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="entityType" value="company">
+                                        <label class="form-check-label">Company</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="entityType" value="partnership">
+                                        <label class="form-check-label">Partnership</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">CIN / LLPIN / PAN / Aadhaar No.</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Registered Address</label>
+                                    <textarea class="form-control" rows="2" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Contact Number</label>
+                                    <input type="tel" class="form-control" pattern="[0-9]{10}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email ID</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Charge Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Charge Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Charge ID (if modifying existing charge)</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Type of Charge</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="chargeType" value="mortgage" required>
+                                        <label class="form-check-label">Mortgage</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="chargeType" value="hypothecation">
+                                        <label class="form-check-label">Hypothecation</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="chargeType" value="pledge">
+                                        <label class="form-check-label">Pledge</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Charge Holder (Bank/FI/NBFC Name)</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Date of Charge Creation</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Amount Secured by Charge (INR)</label>
+                                    <input type="number" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Description of Property/Asset Charged</label>
+                                    <textarea class="form-control" rows="2" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Asset Identification Number (if any)</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Purpose of Registration -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Purpose of Registration</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="registrationPurpose" value="initial" required>
+                                        <label class="form-check-label">Initial Registration</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="registrationPurpose" value="modification">
+                                        <label class="form-check-label">Modification of Charge</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="registrationPurpose" value="satisfaction">
+                                        <label class="form-check-label">Satisfaction of Charge</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">List of Documents Attached</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Copy of Charge Instrument</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Proof of Execution (Board Resolution / Agreement)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">ID Proof of Authorized Person</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">PAN / Aadhaar of Applicant</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label">Power of Attorney (if applicable)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Declaration and Signature -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Declaration and Signature</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        I hereby declare that the information provided above is true and correct to the best of my knowledge
+                                        and belief. I understand that any false declaration may lead to penal consequences under applicable law.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Date of Submission</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Digital Signature</label>
+                                    <div class="border rounded p-3 text-center" id="chargeSignatureArea">
+                                        <canvas id="chargeSignatureCanvas" width="400" height="200" 
+                                                style="border: 1px solid #ddd; width: 100%; height: 200px;"></canvas>
+                                        <div class="mt-2">
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="clearChargeSignature()">Clear Signature</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="printChargeForm()">Print Form</button>
+                    <button type="submit" form="chargeRegistrationForm" class="btn btn-success">Submit Form</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to your existing JavaScript before the closing body tag -->
+    <script>
+        // Charge Registration Form Functions
+        let chargeSignaturePad;
+
+        function openChargeRegistrationForm(event) {
+            event.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('chargeRegistrationModal'));
+            modal.show();
+
+            // Initialize signature pad after modal is shown
+            setTimeout(() => {
+                const canvas = document.getElementById('chargeSignatureCanvas');
+                chargeSignaturePad = new SignaturePad(canvas, {
+                    backgroundColor: 'rgb(255, 255, 255)'
+                });
+            }, 500);
+        }
+
+        function clearChargeSignature() {
+            if (chargeSignaturePad) {
+                chargeSignaturePad.clear();
+            }
+        }
+
+        function printChargeForm() {
+            window.print();
+        }
+
+        // Form submission
+        document.getElementById('chargeRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Charge Registration Form submitted successfully!');
+        });
+    </script>
+
+    <!-- Add Government Scheme Application Form Modal before the closing body tag -->
+    <div class="modal fade" id="schemeApplicationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Application Form - Government Scheme (DoLR)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="schemeApplicationForm">
+                        <!-- Applicant Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Applicant Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Name of the Applicant</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Father's / Husband's Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Type of Applicant</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="applicantType" value="individual" required>
+                                        <label class="form-check-label">Individual</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="applicantType" value="shg">
+                                        <label class="form-check-label">SHG</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="applicantType" value="cooperative">
+                                        <label class="form-check-label">Cooperative</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">ID Proof (PAN / Aadhaar No.)</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Address</label>
+                                    <textarea class="form-control" rows="2" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">District / State</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Contact Number</label>
+                                    <input type="tel" class="form-control" pattern="[0-9]{10}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email ID (if any)</label>
+                                    <input type="email" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Scheme Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Scheme Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Scheme Name</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Component Applied For</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Project / Activity Description</label>
+                                    <textarea class="form-control" rows="3" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Estimated Cost (INR)</label>
+                                    <input type="number" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Land Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Land Details</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">Land Ownership Details</label>
+                                    <textarea class="form-control" rows="2" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Survey No. / Plot No. (if any)</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Area of Land (in acres)</label>
+                                    <input type="number" step="0.01" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Purpose of Application -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Purpose of Application</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="applicationPurpose" value="new" required>
+                                        <label class="form-check-label">New Application</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="applicationPurpose" value="modification">
+                                        <label class="form-check-label">Modification</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="applicationPurpose" value="status">
+                                        <label class="form-check-label">Status Update</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">List of Documents Attached</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">ID Proof (Aadhaar / PAN)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Address Proof</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Land Ownership Proof</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Project Proposal / Estimate</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Bank Passbook Copy</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox">
+                                        <label class="form-check-label">Authorization Letter (if applicable)</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Declaration and Signature -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Declaration and Signature</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        I hereby declare that the information provided above is true and correct to the best of my knowledge
+                                        and belief. I understand that submission of incorrect information may lead to disqualification from the
+                                        scheme.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Date of Submission</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Digital Signature</label>
+                                    <div class="border rounded p-3 text-center" id="schemeSignatureArea">
+                                        <canvas id="schemeSignatureCanvas" width="400" height="200" 
+                                                style="border: 1px solid #ddd; width: 100%; height: 200px;"></canvas>
+                                        <div class="mt-2">
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="clearSchemeSignature()">Clear Signature</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="printSchemeForm()">Print Form</button>
+                    <button type="submit" form="schemeApplicationForm" class="btn btn-success">Submit Form</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to your existing JavaScript before the closing body tag -->
+    <script>
+        // Government Scheme Application Form Functions
+        let schemeSignaturePad;
+
+        function openSchemeApplicationForm(event) {
+            event.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('schemeApplicationModal'));
+            modal.show();
+
+            // Initialize signature pad after modal is shown
+            setTimeout(() => {
+                const canvas = document.getElementById('schemeSignatureCanvas');
+                schemeSignaturePad = new SignaturePad(canvas, {
+                    backgroundColor: 'rgb(255, 255, 255)'
+                });
+            }, 500);
+        }
+
+        function clearSchemeSignature() {
+            if (schemeSignaturePad) {
+                schemeSignaturePad.clear();
+            }
+        }
+
+        function printSchemeForm() {
+            window.print();
+        }
+
+        // Form submission
+        document.getElementById('schemeApplicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Government Scheme Application Form submitted successfully!');
+        });
+    </script>
+
+    <!-- Add Government Scheme Guidelines Modal -->
+    <div class="modal fade" id="schemeGuidelinesModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Government Scheme Guidelines (DoLR)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Guidelines Content -->
+                    <div class="guidelines-content">
+                        <h4>1. Introduction</h4>
+                        <p>These guidelines outline the procedures and requirements for various government schemes under the Department of Land Resources (DoLR).</p>
+
+                        <h4>2. Available Schemes</h4>
+                        <ul>
+                            <li>Rural Development Programs</li>
+                            <li>Land Improvement Initiatives</li>
+                            <li>Agricultural Support Schemes</li>
+                            <li>Infrastructure Development Projects</li>
+                        </ul>
+
+                        <h4>3. Eligibility Criteria</h4>
+                        <ul>
+                            <li>Indian citizens</li>
+                            <li>Age requirements as per specific schemes</li>
+                            <li>Land ownership documentation</li>
+                            <li>Income criteria compliance</li>
+                        </ul>
+
+                        <h4>4. Application Process</h4>
+                        <ol>
+                            <li>Fill out the application form completely</li>
+                            <li>Attach all required documents</li>
+                            <li>Submit to the concerned authority</li>
+                            <li>Track application status online</li>
+                        </ol>
+
+                        <h4>5. Required Documents</h4>
+                        <ul>
+                            <li>Identity Proof (Aadhaar/PAN)</li>
+                            <li>Address Proof</li>
+                            <li>Land Ownership Documents</li>
+                            <li>Income Certificate</li>
+                            <li>Bank Account Details</li>
+                        </ul>
+
+                        <h4>6. Selection Process</h4>
+                        <p>Applications will be evaluated based on:</p>
+                        <ul>
+                            <li>Eligibility criteria fulfillment</li>
+                            <li>Project viability</li>
+                            <li>Available funding</li>
+                            <li>Priority sector considerations</li>
+                        </ul>
+
+                        <h4>7. Implementation Timeline</h4>
+                        <ul>
+                            <li>Application Processing: 30 days</li>
+                            <li>Document Verification: 15 days</li>
+                            <li>Fund Disbursement: 45 days</li>
+                            <li>Project Implementation: As per scheme</li>
+                        </ul>
+
+                        <h4>8. Monitoring & Evaluation</h4>
+                        <p>Regular monitoring will be conducted to ensure:</p>
+                        <ul>
+                            <li>Proper utilization of funds</li>
+                            <li>Project progress</li>
+                            <li>Impact assessment</li>
+                            <li>Compliance with guidelines</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="printGuidelines()">Print Guidelines</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to your existing JavaScript -->
+    <script>
+        function openSchemeGuidelinesModal(event) {
+            event.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('schemeGuidelinesModal'));
+            modal.show();
+        }
+
+        function printGuidelines() {
+            window.print();
+        }
+    </script>
+
+    <style>
+        /* Guidelines Styles */
+        .guidelines-content {
+            padding: 1rem;
+        }
+
+        .guidelines-content h4 {
+            color: #0d6efd;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .guidelines-content p, 
+        .guidelines-content ul, 
+        .guidelines-content ol {
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .guidelines-content ul, 
+        .guidelines-content ol {
+            padding-left: 1.5rem;
+        }
+
+        .guidelines-content li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+
+    <!-- Add Mediation & Compliance Form Modal -->
+    <div class="modal fade" id="mediationComplianceModal" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Application Form - Mediation & Compliance (MCA)</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="mediationComplianceForm">
+                        <!-- Applicant / Entity Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Applicant / Entity Details</h6>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Name of the Entity / Individual</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Type of Entity</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="entityType" value="company" required>
+                                        <label class="form-check-label">Company</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="entityType" value="llp">
+                                        <label class="form-check-label">LLP</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="entityType" value="individual">
+                                        <label class="form-check-label">Individual</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">CIN / LLPIN / PAN / Aadhaar No.</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Registered Office / Address</label>
+                                    <textarea class="form-control" rows="2" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">State / Jurisdiction</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Contact Number</label>
+                                    <input type="tel" class="form-control" pattern="[0-9]{10}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Email ID</label>
+                                    <input type="email" class="form-control" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Mediation / Compliance Details -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Mediation / Compliance Details</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <label class="form-label">Policy Type</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="policyType" value="mediation" required>
+                                        <label class="form-check-label">Mediation</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="policyType" value="compliance">
+                                        <label class="form-check-label">Compliance Reporting</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Matter / Dispute Title</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Brief Description of the Issue</label>
+                                    <textarea class="form-control" rows="3" required></textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Applicable Law / Section</label>
+                                    <input type="text" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Previous Correspondence / Filing Ref. No. (if any)</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Relief / Resolution Sought</label>
+                                    <textarea class="form-control" rows="2" required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Purpose of Application -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Purpose of Application</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="applicationPurpose" value="initial" required>
+                                        <label class="form-check-label">Initial Filing</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="applicationPurpose" value="update">
+                                        <label class="form-check-label">Update Submission</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="applicationPurpose" value="resolution">
+                                        <label class="form-check-label">Resolution Request</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Documents -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">List of Documents Attached</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">ID Proof of Applicant</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Copy of Relevant Agreements / Communications</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Legal Notice / Response (if any)</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Board Resolution / Authorization</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" required>
+                                        <label class="form-check-label">Supporting Legal Documents / Evidence</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Declaration and Signature -->
+                        <div class="mb-4">
+                            <h6 class="form-section-title">Declaration and Signature</h6>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="alert alert-info">
+                                        I hereby declare that the information provided above is accurate and complete to the best of my
+                                        knowledge. I acknowledge that any misrepresentation may lead to legal action under the applicable
+                                        provisions of the Companies Act or related laws.
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Date of Submission</label>
+                                    <input type="date" class="form-control" required>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label">Digital Signature</label>
+                                    <div class="border rounded p-3 text-center" id="mediationSignatureArea">
+                                        <canvas id="mediationSignatureCanvas" width="400" height="200" 
+                                                style="border: 1px solid #ddd; width: 100%; height: 200px;"></canvas>
+                                        <div class="mt-2">
+                                            <button type="button" class="btn btn-sm btn-secondary" onclick="clearMediationSignature()">Clear Signature</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="printMediationForm()">Print Form</button>
+                    <button type="submit" form="mediationComplianceForm" class="btn btn-success">Submit Form</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add to your existing JavaScript -->
+    <script>
+        // Mediation & Compliance Form Functions
+        let mediationSignaturePad;
+
+        function openMediationComplianceForm(event) {
+            event.preventDefault();
+            const modal = new bootstrap.Modal(document.getElementById('mediationComplianceModal'));
+            modal.show();
+
+            // Initialize signature pad after modal is shown
+            setTimeout(() => {
+                const canvas = document.getElementById('mediationSignatureCanvas');
+                mediationSignaturePad = new SignaturePad(canvas, {
+                    backgroundColor: 'rgb(255, 255, 255)'
+                });
+            }, 500);
+        }
+
+        function clearMediationSignature() {
+            if (mediationSignaturePad) {
+                mediationSignaturePad.clear();
+            }
+        }
+
+        function printMediationForm() {
+            window.print();
+        }
+
+        // Form submission
+        document.getElementById('mediationComplianceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Add your form submission logic here
+            alert('Mediation & Compliance Form submitted successfully!');
+        });
+    </script>
+
+    <!-- Footer -->
+    <footer class="bg-light py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h4>Important Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="privacy-policy.html" target="_self">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Accessibility Statement</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

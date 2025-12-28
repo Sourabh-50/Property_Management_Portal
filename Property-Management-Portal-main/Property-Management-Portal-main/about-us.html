@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Unified Property Input</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2997FF;
+            --secondary-color: #06c;
+            --text-color: #1d1d1f;
+            --background-light: #fbfbfd;
+            --link-color: #06c;
+            --hover-color: #147ce5;
+        }
+
+        body {
+            font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-light);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .logo-container {
+            width: 50px;
+            height: 50px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .brand-tagline {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .nav-link {
+            color: #333;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #0066ff;
+        }
+
+        .nav-link i {
+            margin-right: 0.5rem;
+        }
+
+        .dropdown-menu {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        .dropdown-item {
+            padding: 0.75rem 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown-item i {
+            margin-right: 0.5rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .profile-btn {
+            background: #0066ff;
+            color: white;
+            border-radius: 8px;
+            padding: 0.5rem 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .profile-btn:hover {
+            background: #0052cc;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .animated {
+            animation-duration: 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fadeIn {
+            animation-name: fadeIn;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 6rem 0;
+            margin-bottom: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section h1 {
+            font-size: 3.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-section p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .section-card {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .section-card.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .section-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #333;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .value-card {
+            background: white;
+            border-radius: 18px;
+            padding: 2rem;
+            height: 100%;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .value-card.animate {
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        .value-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .value-card:hover .value-icon {
+            transform: scale(1.1);
+        }
+
+        .achievement-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .achievement-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #0066ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .team-member.animate {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover img {
+            transform: scale(1.05);
+        }
+
+        .team-member h4 {
+            color: #0066ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-member .position {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .team-member p {
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    
+
+    <!-- Header Section -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <div class="logo-container">
+                        <img src="logo.jpg" alt="Unified Property Input Logo" class="logo-img">
+                    </div>
+                    <div class="brand-text ms-2">
+                        <span class="brand-name">Unified Property Input</span>
+                        <span class="brand-tagline">Streamlining Urban & Rural Data Access</span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="main.html">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-building"></i> Properties
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item" href="propertySearch.html"><i class="fas fa-search"></i> Search Properties</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-signature"></i> Register Property</a></li>
+                                <li><a class="dropdown-item" href="property-maps.html"><i class="fas fa-map-marked-alt"></i> Property Maps</a></li>
+                                <li><a class="dropdown-item" href="market-analysis.html"><i class="fas fa-chart-area"></i> Market Analysis</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-file-alt"></i> Documents
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Upload Documents</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-download"></i> Download Forms</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-check-circle"></i> Verify Documents</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" href="about-us.html">
+                                <i class="fas fa-info-circle"></i> About Us
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="nav-right d-flex align-items-center">
+                        <button class="btn profile-btn" data-bs-toggle="modal" data-bs-target="#profileModal">
+                            <i class="fas fa-user"></i> Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1>About Us</h1>
+            <p>Learn more about Unified Property Input and our mission</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Who We Are -->
+        <div class="section-card">
+            <h2 class="section-title">Who We Are</h2>
+            <p>Unified Property Input is a government initiative aimed at revolutionizing property management and registration in India. Our platform serves as a comprehensive solution for property-related services, making the process more accessible, transparent, and efficient for citizens.</p>
+        </div>
+
+        <!-- Our Mission -->
+        <div class="section-card">
+            <h2 class="section-title">Our Mission</h2>
+            <p>To streamline property management processes through digital transformation, ensuring transparency, efficiency, and accessibility for all citizens while maintaining the highest standards of security and compliance.</p>
+        </div>
+
+        <!-- Our Values -->
+        <h2 class="section-title">Our Values</h2>
+        <div class="row mb-5">
+            <div class="col-md-4 mb-4">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security</h3>
+                    <p>Ensuring the highest level of data protection and privacy for all users.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <h3>Transparency</h3>
+                    <p>Maintaining clear and open communication in all our processes.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Accessibility</h3>
+                    <p>Making property services accessible to every citizen of India.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Achievements -->
+        <div class="section-card">
+            <h2 class="section-title text-center">Our Achievements</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="achievement-item">
+                        <div class="achievement-number">1M+</div>
+                        <div class="achievement-label">Registered Properties</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="achievement-item">
+                        <div class="achievement-number">500+</div>
+                        <div class="achievement-label">Districts Covered</div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="achievement-item">
+                        <div class="achievement-number">24/7</div>
+                        <div class="achievement-label">Customer Support</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Our Team -->
+        <h2 class="section-title text-center mt-5">Our Team</h2>
+        <div class="row mb-5">
+            <div class="col-md-3 mb-4">
+                <div class="team-member">
+                    <img src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/45.png" alt="Sourabh Shinde">
+                    <h4>Sourabh Shinde</h4>
+                    <div class="position">Team Lead</div>
+                    <p>Leading our team with innovative solutions and strategic vision to revolutionize property management systems.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="team-member">
+                    <img src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/female/68.png" alt="Anushka Bhandari">
+                    <h4>Anushka Bhandari</h4>
+                    <div class="position">Backend Designer</div>
+                    <p>Architecting robust backend solutions and ensuring seamless data management for our platform.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="team-member">
+                    <img src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/85.png" alt="Sagar Pukale">
+                    <h4>Sagar Pukale</h4>
+                    <div class="position">Frontend Designer</div>
+                    <p>Creating intuitive and responsive user interfaces to enhance the user experience.</p>
+                </div>
+            </div>
+            <div class="col-md-3 mb-4">
+                <div class="team-member">
+                    <img src="https://raw.githubusercontent.com/Ashwinvalento/cartoon-avatar/master/lib/images/male/66.png" alt="Sanket Ghatte">
+                    <h4>Sanket Ghatte</h4>
+                    <div class="position">Full Stack Developer</div>
+                    <p>Bridging frontend and backend technologies to deliver comprehensive solutions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalLabel">Profile Options</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-grid gap-3">
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-user-circle me-2"></i>
+                            View Profile
+                        </button>
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-cog me-2"></i>
+                            Account Settings
+                        </button>
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-bell me-2"></i>
+                            Notifications
+                        </button>
+                        <button class="btn btn-outline-primary">
+                            <i class="fas fa-question-circle me-2"></i>
+                            Help & Support
+                        </button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-sign-out-alt me-2"></i>
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize animations for sections
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe all animated elements
+            document.querySelectorAll('.section-card, .value-card, .team-member').forEach(element => {
+                observer.observe(element);
+            });
+
+            // Handle navbar background on scroll
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Add parallax effect to hero section
+            const heroSection = document.querySelector('.hero-section');
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+                heroSection.style.opacity = 1 - (scrolled * 0.003);
+            });
+
+            // Add hover effect for interactive elements
+            const interactiveElements = document.querySelectorAll('.btn, .nav-link');
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

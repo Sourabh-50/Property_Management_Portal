@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Registration - BhuSamriddhi</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        .section-title {
+            color: #6c63ff;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #6c63ff;
+        }
+        .registration-id {
+            background: #e8f0fe;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .registration-id p {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .registration-id span {
+            color: #6c63ff;
+            font-weight: 600;
+        }
+        .form-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+        <div class="container">
+            <a class="navbar-brand" href="main.html">
+                <i class="fas fa-arrow-left me-2"></i>
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="form-container">
+            <h2 class="text-center mb-4">Property Registration Form</h2>
+            
+            <div class="registration-id" id="registrationInfo" style="display: none;">
+                <p>Registration ID: <span id="registryId"></span></p>
+                <p>Survey Number: <span id="surveyNo"></span></p>
+                <p>Date: <span id="registrationDate"></span></p>
+            </div>
+
+            <form id="propertyRegistrationForm" class="needs-validation" novalidate>
+                <!-- Personal Information -->
+                <h4 class="section-title">Personal Information</h4>
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="ownerName" class="form-label">Owner's Full Name</label>
+                        <input type="text" class="form-control" id="ownerName" name="ownerName" required>
+                        <div class="invalid-feedback">Please enter owner's name</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="contactNumber" class="form-label">Contact Number</label>
+                        <input type="tel" class="form-control" id="contactNumber" name="contactNumber" pattern="[0-9]{10}" required>
+                        <div class="invalid-feedback">Please enter a valid 10-digit contact number</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                        <div class="invalid-feedback">Please enter a valid email address</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="idProof" class="form-label">ID Proof</label>
+                        <select class="form-select" id="idProof" name="idProof" required>
+                            <option value="">Select ID Type</option>
+                            <option value="aadhar">Aadhar Card</option>
+                            <option value="pan">PAN Card</option>
+                            <option value="passport">Passport</option>
+                        </select>
+                        <div class="invalid-feedback">Please select an ID proof</div>
+                    </div>
+                </div>
+
+                <!-- Property Details -->
+                <h4 class="section-title">Property Details</h4>
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="propertyType" class="form-label">Property Type</label>
+                        <select class="form-select" id="propertyType" name="propertyType" required>
+                            <option value="">Select Property Type</option>
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="agricultural">Agricultural</option>
+                        </select>
+                        <div class="invalid-feedback">Please select property type</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="propertyArea" class="form-label">Property Area (sq ft)</label>
+                        <input type="number" class="form-control" id="propertyArea" name="propertyArea" required>
+                        <div class="invalid-feedback">Please enter property area</div>
+                    </div>
+                    <div class="col-12 mb-3">
+                        <label for="propertyAddress" class="form-label">Property Address</label>
+                        <textarea class="form-control" id="propertyAddress" name="propertyAddress" rows="3" required></textarea>
+                        <div class="invalid-feedback">Please enter property address</div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city" required>
+                        <div class="invalid-feedback">Please enter city</div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="state" class="form-label">State</label>
+                        <input type="text" class="form-control" id="state" name="state" required>
+                        <div class="invalid-feedback">Please enter state</div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="pincode" class="form-label">PIN Code</label>
+                        <input type="text" class="form-control" id="pincode" name="pincode" pattern="[0-9]{6}" required>
+                        <div class="invalid-feedback">Please enter valid 6-digit PIN code</div>
+                    </div>
+                </div>
+
+                <!-- Required Documents -->
+                <h4 class="section-title">Required Documents</h4>
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3">
+                        <label for="propertyDeed" class="form-label">Property Deed</label>
+                        <input type="file" class="form-control" id="propertyDeed" name="propertyDeed" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <div class="invalid-feedback">Please upload property deed</div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="taxReceipt" class="form-label">Latest Tax Receipt</label>
+                        <input type="file" class="form-control" id="taxReceipt" name="taxReceipt" accept=".pdf,.jpg,.jpeg,.png" required>
+                        <div class="invalid-feedback">Please upload tax receipt</div>
+                    </div>
+                </div>
+
+                <!-- Terms and Submit -->
+                <div class="mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck">
+                            I agree to the terms and conditions
+                        </label>
+                        <div class="invalid-feedback">You must agree before submitting</div>
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        document.getElementById('propertyRegistrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get submit button
+            const submitBtn = document.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Saving...';
+
+            // Generate unique IDs
+            const registryId = 'REG' + Date.now().toString().slice(-8);
+            const surveyNo = 'SUR' + Math.random().toString(36).substr(2, 6).toUpperCase();
+
+            // Create registration object
+            const registration = {
+                registryId: registryId,
+                surveyNo: surveyNo,
+                registrationDate: new Date().toISOString(),
+                ownerDetails: {
+                    name: document.getElementById('ownerName').value,
+                    contactNumber: document.getElementById('contactNumber').value,
+                    email: document.getElementById('email').value,
+                    idProof: document.getElementById('idProof').value
+                },
+                propertyDetails: {
+                    type: document.getElementById('propertyType').value,
+                    area: document.getElementById('propertyArea').value,
+                    address: document.getElementById('propertyAddress').value,
+                    city: document.getElementById('city').value,
+                    state: document.getElementById('state').value,
+                    pincode: document.getElementById('pincode').value
+                },
+                documents: {
+                    propertyDeed: document.getElementById('propertyDeed').files[0]?.name || '',
+                    taxReceipt: document.getElementById('taxReceipt').files[0]?.name || ''
+                },
+                termsAccepted: document.getElementById('termsCheck').checked
+            };
+
+            try {
+                // Get existing registrations or create new array
+                let existingData = { registrations: [] };
+                const savedData = localStorage.getItem('propertyRegistrations');
+                if (savedData) {
+                    existingData = JSON.parse(savedData);
+                }
+
+                // Add new registration
+                existingData.registrations.push(registration);
+
+                // Save to localStorage
+                localStorage.setItem('propertyRegistrations', JSON.stringify(existingData));
+
+                // Update registration info display
+                document.getElementById('registryId').textContent = registryId;
+                document.getElementById('surveyNo').textContent = surveyNo;
+                document.getElementById('registrationDate').textContent = new Date().toLocaleDateString();
+                document.getElementById('registrationInfo').style.display = 'block';
+
+                // Show success message
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Registration Successful!',
+                    html: `
+                        <p>Your property has been registered successfully.</p>
+                        <p>Registration ID: <strong>${registryId}</strong></p>
+                        <p>Survey Number: <strong>${surveyNo}</strong></p>
+                        <p>Please save these details for future reference.</p>
+                    `,
+                    confirmButtonColor: '#6c63ff'
+                }).then(() => {
+                    // Save as JSON file
+                    const jsonContent = JSON.stringify(existingData, null, 2);
+                    const blob = new Blob([jsonContent], { type: 'application/json' });
+                    const a = document.createElement('a');
+                    a.href = URL.createObjectURL(blob);
+                    a.download = `property_registration_${registryId}.json`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+
+                    // Reset form
+                    this.reset();
+                    document.getElementById('registrationInfo').style.display = 'none';
+                });
+
+            } catch (error) {
+                console.error('Error saving data:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Failed to save registration. Please try again.',
+                    confirmButtonColor: '#6c63ff'
+                });
+            } finally {
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Submit Registration';
+            }
+        });
+    </script>
+</body>
+</html> 

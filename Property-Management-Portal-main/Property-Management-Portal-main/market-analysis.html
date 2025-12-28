@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis - Property Insights</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .profile-btn {
+            background-color: #0066ff;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .profile-btn:hover {
+            background-color: #0052cc;
+            color: white;
+        }
+
+        .analysis-card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .trend-indicator {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .trend-up {
+            background-color: #e6f4ea;
+            color: #137333;
+        }
+
+        .trend-down {
+            background-color: #fce8e6;
+            color: #c5221f;
+        }
+
+        .locality-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+
+        .rating-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: white;
+            background: linear-gradient(45deg, #0066ff, #0052cc);
+        }
+
+        .amenity-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 6px 12px;
+            background-color: #f0f4f8;
+            border-radius: 20px;
+            margin: 4px;
+            font-size: 13px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-bottom: 24px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 8px;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            background-color: #f8f9fa;
+            border: none;
+        }
+
+        .comparison-table tr td:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+
+        .comparison-table tr td:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(45deg, #f8f9fa, #ffffff);
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #e9ecef;
+        }
+
+        .metric-value {
+            font-size: 24px;
+            font-weight: 600;
+            color: #0066ff;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .progress {
+            height: 8px;
+            margin-bottom: 1rem;
+            background-color: #e9ecef;
+        }
+
+        .progress-bar {
+            background-color: #0066ff;
+        }
+
+        .logo-container {
+            width: 35px;
+            height: 35px;
+            overflow: hidden;
+            border-radius: 6px;
+        }
+
+        .logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .brand-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .brand-tagline {
+            font-size: 0.65rem;
+            color: #666;
+        }
+
+        /* Override navigation spacing */
+        .nav-right {
+            margin-left: 0 !important;
+        }
+        
+        .profile-btn {
+            margin: 0 !important;
+            padding: 0.5rem 0.8rem;
+        }
+
+        .navbar-nav {
+            gap: 0;
+            margin-right: 0 !important;
+        }
+
+        .nav-item {
+            margin: 0;
+        }
+
+        .nav-link {
+            padding: 0.5rem 0.6rem !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="main.html">
+                    <div class="logo-container">
+                        <img src="logo.jpg" alt="Unified Property Input Logo" class="logo-img">
+                    </div>
+                    <div class="brand-text ms-2">
+                        <span class="brand-name">Unified Property Input</span>
+                        <span class="brand-tagline">Streamlining Urban & Rural Data Access</span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="main.html">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="propertiesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-home"></i> Properties
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item" href="propertySearch.html"><i class="fas fa-search"></i> Search Properties</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-file-signature"></i> Register Property</a></li>
+                                <li><a class="dropdown-item" href="property-maps.html"><i class="fas fa-map-marked-alt"></i> Property Maps</a></li>
+                                <li><a class="dropdown-item" href="market-analysis.html"><i class="fas fa-chart-area"></i> Market Analysis</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-file-alt"></i> Documents
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Upload Documents</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-download"></i> Download Forms</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-check-circle"></i> Verify Documents</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="nav-right d-flex align-items-center">
+                        <button class="btn profile-btn" data-bs-toggle="modal" data-bs-target="#profileModal">
+                            <i class="fas fa-user"></i> Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container my-4">
+        <!-- Area Selection -->
+        <div class="analysis-card mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <h4>Market Analysis</h4>
+                    <p class="text-muted">Comprehensive property market insights for informed decisions</p>
+                </div>
+                <div class="col-md-6">
+                    <select class="form-select" id="areaSelect" onchange="updateAnalysis()">
+                        <option value="">Select Location</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Price Trends -->
+        <div class="analysis-card">
+            <h5><i class="fas fa-chart-line me-2"></i>Price Trends</h5>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="chart-container">
+                        <canvas id="priceChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="metric-card">
+                        <div class="metric-value" id="avgPrice">Loading...</div>
+                        <div class="metric-label">Current Average Price</div>
+                        <div class="trend-indicator trend-up mt-2" id="priceChange">
+                            <i class="fas fa-arrow-up me-1"></i> Calculating...
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value" id="avgRental">Loading...</div>
+                        <div class="metric-label">Average Area</div>
+                        <div class="trend-indicator trend-up mt-2" id="areaChange">
+                            <i class="fas fa-arrow-up me-1"></i> Calculating...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demand & Supply -->
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="analysis-card">
+                    <h5><i class="fas fa-balance-scale me-2"></i>Property Type Distribution</h5>
+                    <div class="chart-container">
+                        <canvas id="propertyTypeChart"></canvas>
+                    </div>
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Distribution of different property types in the selected area
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="analysis-card">
+                    <h5><i class="fas fa-star me-2"></i>Price Range Analysis</h5>
+                    <div class="chart-container">
+                        <canvas id="priceRangeChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Listings -->
+        <div class="analysis-card mt-4">
+            <h5><i class="fas fa-list me-2"></i>Available Properties</h5>
+            <div class="row" id="propertyListings">
+                <!-- Property cards will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        let propertyData = [];
+        let charts = {};
+
+        // Load and initialize data
+        async function loadPropertyData() {
+            try {
+                const response = await fetch('geo_land_registry_mock_data.json');
+                propertyData = await response.json();
+                
+                // Initialize location dropdown
+                const locations = [...new Set(propertyData.map(p => p.location))];
+                const areaSelect = document.getElementById('areaSelect');
+                locations.forEach(location => {
+                    const option = document.createElement('option');
+                    option.value = location;
+                    option.textContent = location;
+                    areaSelect.appendChild(option);
+                });
+
+                // Initialize charts
+                initializeCharts();
+                
+                // Update analysis with first location
+                if (locations.length > 0) {
+                    areaSelect.value = locations[0];
+                    updateAnalysis();
+                }
+            } catch (error) {
+                console.error('Error loading property data:', error);
+                document.getElementById('propertyListings').innerHTML = `
+                    <div class="col-12">
+                        <div class="alert alert-danger" role="alert">
+                            <i class="fas fa-exclamation-circle me-2"></i>
+                            Error loading property data. Please try again later.
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Initialize charts
+        function initializeCharts() {
+            // Price Trends Chart
+            const priceCtx = document.getElementById('priceChart').getContext('2d');
+            charts.priceChart = new Chart(priceCtx, {
+                type: 'line',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Average Price',
+                        data: [],
+                        borderColor: '#0066ff',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Property Type Distribution Chart
+            const typeCtx = document.getElementById('propertyTypeChart').getContext('2d');
+            charts.propertyTypeChart = new Chart(typeCtx, {
+                type: 'pie',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        data: [],
+                        backgroundColor: ['#0066ff', '#00cc44', '#ff9900', '#ff3366']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Price Range Chart
+            const rangeCtx = document.getElementById('priceRangeChart').getContext('2d');
+            charts.priceRangeChart = new Chart(rangeCtx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: 'Properties',
+                        data: [],
+                        backgroundColor: '#0066ff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // Update analysis based on selected location
+        function updateAnalysis() {
+            const selectedLocation = document.getElementById('areaSelect').value;
+            const locationProperties = propertyData.filter(p => p.location === selectedLocation);
+
+            if (locationProperties.length === 0) return;
+
+            // Update metrics
+            const avgPrice = calculateAveragePrice(locationProperties);
+            const avgArea = calculateAverageArea(locationProperties);
+            
+            document.getElementById('avgPrice').textContent = `₹${formatPrice(avgPrice)}`;
+            document.getElementById('avgRental').textContent = `${avgArea} sq.ft`;
+
+            // Update charts
+            updatePriceChart(locationProperties);
+            updatePropertyTypeChart(locationProperties);
+            updatePriceRangeChart(locationProperties);
+            
+            // Update property listings
+            displayProperties(locationProperties);
+        }
+
+        // Calculate average price
+        function calculateAveragePrice(properties) {
+            return properties.reduce((sum, p) => sum + p.price, 0) / properties.length;
+        }
+
+        // Calculate average area
+        function calculateAverageArea(properties) {
+            return Math.round(properties.reduce((sum, p) => sum + p.area, 0) / properties.length);
+        }
+
+        // Update price trends chart
+        function updatePriceChart(properties) {
+            const sortedProperties = [...properties].sort((a, b) => 
+                new Date(a.registrationDate) - new Date(b.registrationDate)
+            );
+
+            charts.priceChart.data.labels = sortedProperties.map(p => 
+                new Date(p.registrationDate).toLocaleDateString('en-US', { month: 'short' })
+            );
+            charts.priceChart.data.datasets[0].data = sortedProperties.map(p => p.price);
+            charts.priceChart.update();
+        }
+
+        // Update property type distribution chart
+        function updatePropertyTypeChart(properties) {
+            const typeCount = {};
+            properties.forEach(p => {
+                typeCount[p.propertyType] = (typeCount[p.propertyType] || 0) + 1;
+            });
+
+            charts.propertyTypeChart.data.labels = Object.keys(typeCount);
+            charts.propertyTypeChart.data.datasets[0].data = Object.values(typeCount);
+            charts.propertyTypeChart.update();
+        }
+
+        // Update price range chart
+        function updatePriceRangeChart(properties) {
+            const ranges = {
+                '0-20L': 0,
+                '20-40L': 0,
+                '40-60L': 0,
+                '60-80L': 0,
+                '80L+': 0
+            };
+
+            properties.forEach(p => {
+                const price = p.price / 100000; // Convert to lakhs
+                if (price <= 20) ranges['0-20L']++;
+                else if (price <= 40) ranges['20-40L']++;
+                else if (price <= 60) ranges['40-60L']++;
+                else if (price <= 80) ranges['60-80L']++;
+                else ranges['80L+']++;
+            });
+
+            charts.priceRangeChart.data.labels = Object.keys(ranges);
+            charts.priceRangeChart.data.datasets[0].data = Object.values(ranges);
+            charts.priceRangeChart.update();
+        }
+
+        // Display property listings
+        function displayProperties(properties) {
+            const propertyListings = document.getElementById('propertyListings');
+            propertyListings.innerHTML = '';
+            
+            properties.forEach(property => {
+                const propertyCard = `
+                    <div class="col-md-4 mb-4">
+                        <div class="property-card">
+                            <img src="${property.image || 'https://via.placeholder.com/400x200'}" 
+                                 alt="${property.propertyType}" 
+                                 class="property-image w-100">
+                            <div class="property-details">
+                                <div class="property-price">₹${formatPrice(property.price)}</div>
+                                <h5 class="mt-2">${property.propertyType}</h5>
+                                <p class="property-location">
+                                    <i class="fas fa-map-marker-alt me-2"></i>${property.location}
+                                </p>
+                                <div class="property-features">
+                                    <span><i class="fas fa-vector-square me-2"></i>${property.area} sq.ft</span>
+                                    <span><i class="fas fa-calendar me-2"></i>${property.registrationDate}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                propertyListings.innerHTML += propertyCard;
+            });
+        }
+
+        // Format price to Indian currency format
+        function formatPrice(price) {
+            return new Intl.NumberFormat('en-IN', {
+                maximumSignificantDigits: 3
+            }).format(price);
+        }
+
+        // Load data when page loads
+        loadPropertyData();
+    </script>
+    
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Login/Register Button -->
+                    <div class="text-center mb-4">
+                        <button class="btn btn-primary px-4" onclick="openLoginModal()">
+                            <i class="fas fa-sign-in-alt me-2"></i> LOGIN / REGISTER
+                        </button>
+                    </div>
+
+                    <!-- Profile Options -->
+                    <div class="d-grid gap-3">
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-plus-circle me-2"></i> Post Property Free</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-clipboard-list me-2"></i> Requested Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-phone-alt me-2"></i> Contacted Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-file-contract me-2"></i> Issued Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-heart me-2"></i> Shortlisted Properties</span>
+                        </a>
+                    </div>
+
+                    <!-- Signup Link -->
+                    <div class="text-center mt-4">
+                        <p class="mb-0">New to Integrated Property Search? 
+                            <a href="#" class="text-primary text-decoration-none" onclick="openLoginModal()">
+                                <i class="fas fa-user-plus me-1"></i>Signup
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade login-modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">SIGN IN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="login-form" id="loginForm">
+                        <!-- Email/Phone Input -->
+                        <div class="mb-4">
+                            <input type="text" class="form-control" id="emailPhone" placeholder="Email / Phone Number" required>
+                        </div>
+
+                        <!-- OTP Input (Initially Hidden) -->
+                        <div class="mb-4 d-none" id="otpSection">
+                            <input type="text" class="form-control otp-input" id="otp" placeholder="Enter OTP" maxlength="6">
+                            <div class="text-end mt-2">
+                                <a href="#" class="text-primary text-decoration-none" id="resendOtp">Resend OTP</a>
+                            </div>
+                        </div>
+
+                        <!-- Login/Get OTP Button -->
+                        <button type="submit" class="btn btn-primary login-btn" id="loginButton">LOGIN</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Add this script at the end of the body
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.getElementById('loginForm');
+        const emailPhone = document.getElementById('emailPhone');
+        const otpSection = document.getElementById('otpSection');
+        const loginButton = document.getElementById('loginButton');
+        const resendOtp = document.getElementById('resendOtp');
+        let isOtpSent = false;
+
+        // Function to open login modal and close profile modal
+        window.openLoginModal = function() {
+            const profileModal = bootstrap.Modal.getInstance(document.getElementById('profileModal'));
+            const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+            
+            if (profileModal) {
+                profileModal.hide();
+            }
+            loginModal.show();
+        };
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!isOtpSent) {
+                // First click - Show OTP section
+                otpSection.classList.remove('d-none');
+                loginButton.textContent = 'Verify OTP';
+                isOtpSent = true;
+                
+                // Simulate OTP sent message
+                alert('OTP has been sent to ' + emailPhone.value);
+            } else {
+                // Second click - Verify OTP
+                const otp = document.getElementById('otp').value;
+                if (otp.length === 6) {
+                    // Simulate successful login
+                    alert('Login successful!');
+                    // Close the login modal
+                    const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                    loginModal.hide();
+                    // Also close the profile modal
+                    const profileModal = bootstrap.Modal.getInstance(document.getElementById('profileModal'));
+                    if (profileModal) {
+                        profileModal.hide();
+                    }
+                    // Reset the form
+                    resetLoginForm();
+                } else {
+                    alert('Please enter a valid 6-digit OTP');
+                }
+            }
+        });
+
+        resendOtp.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Simulate resending OTP
+            alert('New OTP has been sent to ' + emailPhone.value);
+        });
+
+        // Reset form when modal is closed
+        document.getElementById('loginModal').addEventListener('hidden.bs.modal', function () {
+            resetLoginForm();
+        });
+
+        function resetLoginForm() {
+            loginForm.reset();
+            otpSection.classList.add('d-none');
+            loginButton.textContent = 'LOGIN';
+            isOtpSent = false;
+        }
+    });
+    </script>
+</body>
+</html> 

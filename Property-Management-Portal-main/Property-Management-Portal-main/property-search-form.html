@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Property Search - BhuSamriddhi</title>
+    <meta name="description" content="BhuSamriddhi - Streamlining Urban & Rural Data Access">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Replace Leaflet with Google Maps API -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4sUkx3h-NJuQYD-8iGKAya11iaBiPBQM"></script>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .search-form-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-label.required::after {
+            content: "*";
+            color: #dc3545;
+            margin-left: 4px;
+        }
+
+        .form-control, .form-select {
+            padding: 0.75rem;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #0066ff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 255, 0.25);
+        }
+
+        .data-source-options {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .data-source-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-search {
+            background-color: #0066ff;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-search:hover {
+            background-color: #0052cc;
+            transform: translateY(-1px);
+        }
+
+        .btn-reset {
+            background-color: #6c757d;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-reset:hover {
+            background-color: #5a6268;
+        }
+
+        .captcha-container {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 6px;
+            margin-bottom: 1.5rem;
+        }
+
+        .refresh-captcha {
+            color: #0066ff;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-start;
+            margin-top: 2rem;
+        }
+
+        /* Enhanced Captcha Styles */
+        .captcha-box {
+            background: linear-gradient(135deg, #f3f4f6 0%, #dfe3e8 100%);
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 3px;
+            color: #2d3748;
+            text-decoration: line-through;
+            position: relative;
+            min-width: 150px;
+            text-align: center;
+            user-select: none;
+        }
+
+        .captcha-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(0,0,0,0.05) 2px,
+                rgba(0,0,0,0.05) 4px
+            );
+        }
+
+        /* Interactive Form Styles */
+        .form-control:not(:placeholder-shown):valid {
+            border-color: #28a745;
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2328a745' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right calc(0.375em + 0.1875rem) center;
+            background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+            padding-right: calc(1.5em + 0.75rem);
+        }
+
+        .form-control:not(:placeholder-shown):invalid {
+            border-color: #dc3545;
+        }
+
+        .data-source-option input[type="checkbox"] {
+            width: 1.2em;
+            height: 1.2em;
+            margin-right: 0.5em;
+            cursor: pointer;
+        }
+
+        .data-source-option label {
+            cursor: pointer;
+        }
+
+        /* Interactive Buttons */
+        .btn {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s, height 0.3s;
+        }
+
+        .btn:active::after {
+            width: 200px;
+            height: 200px;
+        }
+
+        /* Map Styles */
+        #mapContainer {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .map-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .map-error {
+            background-color: #fff3f3;
+            color: #dc3545;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #dc3545;
+        }
+
+        /* Google Maps Info Window Styles */
+        .gm-style-iw {
+            padding: 15px;
+        }
+
+        .property-info-window {
+            font-family: 'Poppins', sans-serif;
+            max-width: 300px;
+        }
+
+        .property-info-window h4 {
+            color: #0066ff;
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .property-info-window p {
+            margin: 5px 0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="main.html">
+                    <div class="logo-container">
+                        <img src="logo.jpg" alt="BhuSamriddhi Logo" class="logo-img">
+                    </div>
+                    <div class="brand-text ms-2">
+                        <span class="brand-name">BhuSamriddhi</span>
+                        <span class="brand-tagline">Streamlining Urban & Rural Data Access</span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="main.html">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="search-form-container">
+            <h2 class="form-title">Property Search</h2>
+            <form id="propertySearchForm">
+                <!-- State Selection -->
+                <div class="form-group">
+                    <label for="state" class="form-label required">State</label>
+                    <select class="form-select" id="state" required>
+                        <option value="">Select State</option>
+                        <!-- States will be populated dynamically -->
+                    </select>
+                </div>
+
+                <!-- District, Taluka, Village Selection -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="district" class="form-label required">District</label>
+                            <select class="form-select" id="district" required>
+                                <option value="">Select District</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="taluka" class="form-label required">Taluka</label>
+                            <select class="form-select" id="taluka" required>
+                                <option value="">Select Taluka</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="village" class="form-label required">Village</label>
+                            <select class="form-select" id="village" required>
+                                <option value="">Select Village</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Property ID or Name -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="propertyId" class="form-label required">Property ID</label>
+                            <input type="text" class="form-control" id="propertyId" placeholder="Enter Property ID" required>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter Name">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Survey and Mobile Number -->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="surveyNo" class="form-label required">Survey No.</label>
+                            <input type="text" class="form-control" id="surveyNo" required placeholder="Enter Survey Number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="mobileNo" class="form-label required">Mobile No.</label>
+                            <input type="tel" class="form-control" id="mobileNo" required placeholder="Enter Mobile Number">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Language Selection -->
+                <div class="form-group">
+                    <label for="language" class="form-label required" data-i18n="selectLanguage">Select Language</label>
+                    <select class="form-select" id="language" required>
+                        <option value="">Select Language</option>
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="mr">मराठी</option>
+                    </select>
+                </div>
+
+                <!-- Captcha -->
+                <div class="form-group">
+                    <label class="form-label required">Captcha</label>
+                    <div class="captcha-container">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="captcha-box" id="captchaBox">
+                                <!-- Captcha will be generated here -->
+                            </div>
+                            <input type="text" class="form-control" id="captcha" required placeholder="Enter Captcha">
+                            <button type="button" class="btn btn-outline-primary refresh-captcha" title="Refresh Captcha">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                        </div>
+                        <small class="text-muted mt-2 d-block">Can't read the captcha? Click the refresh button to get a new one.</small>
+                    </div>
+                </div>
+
+                <!-- Data Sources -->
+                <div class="form-group">
+                    <label class="form-label required">Data Sources</label>
+                    <div class="data-source-options">
+                        <div class="data-source-option">
+                            <input type="checkbox" id="doris" name="dataSources" value="DORIS">
+                            <label for="doris">DORIS</label>
+                        </div>
+                        <div class="data-source-option">
+                            <input type="checkbox" id="cersai" name="dataSources" value="CERSAI">
+                            <label for="cersai">CERSAI</label>
+                        </div>
+                        <div class="data-source-option">
+                            <input type="checkbox" id="dlr" name="dataSources" value="DLR">
+                            <label for="dlr">DLR</label>
+                        </div>
+                        <div class="data-source-option">
+                            <input type="checkbox" id="mca" name="dataSources" value="MCA">
+                            <label for="mca">MCA</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit and Reset Buttons -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-search">Submit</button>
+                    <button type="reset" class="btn btn-reset">Reset</button>
+                    <button type="button" id="downloadPDF" class="btn btn-primary" style="display: none;">
+                        <i class="fas fa-download me-2"></i>Download PDF
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Map Container -->
+    <div id="mapContainer" class="container">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Property Locations</h5>
+            </div>
+            <div class="card-body">
+                <div id="map"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Add LanguageBundle.js before other scripts -->
+    <script src="LanguageBundle.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('propertySearchForm');
+            let propertyData = []; // Store the JSON data
+            let map = null;
+            let markers = [];
+            let bounds = null;
+            let geocoder = null;
+
+            // Fetch property data from JSON file
+            fetch('property_data.json')
+                .then(response => response.json())
+                .then(data => {
+                    propertyData = data;
+                    console.log('Loaded property data:', propertyData); // Debug log
+                    populateStates(data);
+                })
+                .catch(error => console.error('Error loading property data:', error));
+
+            // Populate states from JSON data
+            function populateStates(data) {
+                const states = [...new Set(data.map(item => item.address.state))];
+                const stateSelect = document.getElementById('state');
+                stateSelect.innerHTML = '<option value="">Select State</option>';
+                states.sort().forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state.toLowerCase();
+                    option.textContent = state;
+                    stateSelect.appendChild(option);
+                });
+            }
+
+            // Handle state change
+            document.getElementById('state').addEventListener('change', function() {
+                const selectedState = this.value;
+                const districts = [...new Set(propertyData
+                    .filter(item => item.address.state.toLowerCase() === selectedState)
+                    .map(item => item.address.district))];
+                
+                const districtSelect = document.getElementById('district');
+                districtSelect.innerHTML = '<option value="">Select District</option>';
+                districts.sort().forEach(district => {
+                    const option = document.createElement('option');
+                    option.value = district.toLowerCase();
+                    option.textContent = district;
+                    districtSelect.appendChild(option);
+                });
+
+                // Reset dependent dropdowns
+                document.getElementById('taluka').innerHTML = '<option value="">Select Taluka</option>';
+                document.getElementById('village').innerHTML = '<option value="">Select Village</option>';
+            });
+
+            // Handle district change
+            document.getElementById('district').addEventListener('change', function() {
+                const selectedState = document.getElementById('state').value;
+                const selectedDistrict = this.value;
+                const talukas = [...new Set(propertyData
+                    .filter(item => 
+                        item.address.state.toLowerCase() === selectedState && 
+                        item.address.district.toLowerCase() === selectedDistrict)
+                    .map(item => item.address.taluka))];
+                
+                const talukaSelect = document.getElementById('taluka');
+                talukaSelect.innerHTML = '<option value="">Select Taluka</option>';
+                talukas.sort().forEach(taluka => {
+                    const option = document.createElement('option');
+                    option.value = taluka.toLowerCase();
+                    option.textContent = taluka;
+                    talukaSelect.appendChild(option);
+                });
+
+                // Reset village dropdown
+                document.getElementById('village').innerHTML = '<option value="">Select Village</option>';
+            });
+
+            // Handle taluka change
+            document.getElementById('taluka').addEventListener('change', function() {
+                const selectedState = document.getElementById('state').value;
+                const selectedDistrict = document.getElementById('district').value;
+                const selectedTaluka = this.value;
+                const villages = [...new Set(propertyData
+                    .filter(item => 
+                        item.address.state.toLowerCase() === selectedState && 
+                        item.address.district.toLowerCase() === selectedDistrict &&
+                        item.address.taluka.toLowerCase() === selectedTaluka)
+                    .map(item => item.address.village))];
+                
+                const villageSelect = document.getElementById('village');
+                villageSelect.innerHTML = '<option value="">Select Village</option>';
+                villages.sort().forEach(village => {
+                    const option = document.createElement('option');
+                    option.value = village.toLowerCase();
+                    option.textContent = village;
+                    villageSelect.appendChild(option);
+                });
+            });
+            
+            // Generate and display captcha
+            function generateCaptcha() {
+                const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+                let captcha = '';
+                for (let i = 0; i < 6; i++) {
+                    captcha += chars[Math.floor(Math.random() * chars.length)];
+                }
+                const captchaBox = document.getElementById('captchaBox');
+                captchaBox.innerHTML = captcha;
+                
+                // Add random rotation to each character
+                const captchaText = captchaBox.innerHTML;
+                captchaBox.innerHTML = '';
+                [...captchaText].forEach(char => {
+                    const span = document.createElement('span');
+                    span.textContent = char;
+                    span.style.display = 'inline-block';
+                    span.style.transform = `rotate(${Math.random() * 20 - 10}deg)`;
+                    captchaBox.appendChild(span);
+                });
+                
+                return captcha;
+            }
+
+            let currentCaptcha = generateCaptcha();
+
+            // Refresh captcha handler
+            document.querySelector('.refresh-captcha').addEventListener('click', function() {
+                currentCaptcha = generateCaptcha();
+                document.getElementById('captcha').value = '';
+                document.getElementById('captcha').focus();
+            });
+
+            // Form submission handler
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate captcha
+                const userCaptcha = document.getElementById('captcha').value;
+                if (userCaptcha.toLowerCase() !== currentCaptcha.toLowerCase()) {
+                    alert('Invalid captcha! Please try again.');
+                    document.getElementById('captcha').value = '';
+                    currentCaptcha = generateCaptcha();
+                    return;
+                }
+
+                // Get selected data sources
+                const selectedDataSources = Array.from(document.querySelectorAll('input[name="dataSources"]:checked'))
+                    .map(checkbox => checkbox.value);
+                
+                console.log('Selected data sources:', selectedDataSources); // Debug log
+
+                if (selectedDataSources.length === 0) {
+                    alert('Please select at least one data source');
+                    return;
+                }
+
+                // Get form values
+                const searchCriteria = {
+                    state: document.getElementById('state').value,
+                    district: document.getElementById('district').value,
+                    taluka: document.getElementById('taluka').value,
+                    village: document.getElementById('village').value,
+                    propertyId: document.getElementById('propertyId').value,
+                    name: document.getElementById('name').value,
+                    surveyNo: document.getElementById('surveyNo').value
+                };
+
+                console.log('Search criteria:', searchCriteria); // Debug log
+
+                // Search properties with data source filter
+                const results = propertyData.filter(property => {
+                    console.log('Checking property:', property.property_id, 'Data source:', property.data_source); // Debug log
+                    
+                    // First check if the property's data source is selected
+                    const dataSourceMatch = selectedDataSources.includes(property.data_source);
+                    console.log('Data source match:', dataSourceMatch); // Debug log
+
+                    if (!dataSourceMatch) {
+                        return false;
+                    }
+
+                    // Then apply other search criteria
+                    const matches = (!searchCriteria.state || property.address.state.toLowerCase() === searchCriteria.state.toLowerCase()) &&
+                           (!searchCriteria.district || property.address.district.toLowerCase() === searchCriteria.district.toLowerCase()) &&
+                           (!searchCriteria.taluka || property.address.taluka.toLowerCase() === searchCriteria.taluka.toLowerCase()) &&
+                           (!searchCriteria.village || property.address.village.toLowerCase() === searchCriteria.village.toLowerCase()) &&
+                           (!searchCriteria.propertyId || property.property_id.toLowerCase().includes(searchCriteria.propertyId.toLowerCase())) &&
+                           (!searchCriteria.surveyNo || property.survey_no.toLowerCase().includes(searchCriteria.surveyNo.toLowerCase())) &&
+                           (!searchCriteria.name || property.owner_details.some(owner => 
+                               owner.name.toLowerCase().includes(searchCriteria.name.toLowerCase())));
+
+                    console.log('Other criteria match:', matches); // Debug log
+                    return matches;
+                });
+
+                console.log('Search results:', results); // Debug log
+
+                // Display results
+                displaySearchResults(results);
+            });
+
+            // Initialize map
+            function initializeMap() {
+                if (!map) {
+                    // Center of India
+                    const indiaCenter = { lat: 20.5937, lng: 78.9629 };
+                    
+                    map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 4,
+                        center: indiaCenter,
+                        mapTypeControl: true,
+                        streetViewControl: false,
+                        fullscreenControl: true,
+                        styles: [
+                            {
+                                featureType: "poi",
+                                elementType: "labels",
+                                stylers: [{ visibility: "off" }]
+                            }
+                        ]
+                    });
+
+                    bounds = new google.maps.LatLngBounds();
+                    geocoder = new google.maps.Geocoder();
+                }
+            }
+
+            // Clear existing markers
+            function clearMarkers() {
+                markers.forEach(marker => marker.setMap(null));
+                markers = [];
+                if (bounds) {
+                    bounds = new google.maps.LatLngBounds();
+                }
+            }
+
+            // Create info window content
+            function createInfoWindowContent(property) {
+                return `
+                    <div class="property-info-window">
+                        <h4>${property.property_id}</h4>
+                        <p><strong>Type:</strong> ${property.property_type}</p>
+                        <p><strong>Area:</strong> ${property.area_sq_ft} sq ft</p>
+                        <p><strong>Address:</strong> ${property.address.property_address}</p>
+                        <p><strong>Village:</strong> ${property.address.village}</p>
+                        <p><strong>District:</strong> ${property.address.district}</p>
+                        <p><strong>State:</strong> ${property.address.state}</p>
+                        <p><strong>Owner:</strong> ${property.owner_details[0].name}</p>
+                        <p><strong>Contact:</strong> ${property.owner_details[0].mobile_number}</p>
+                    </div>
+                `;
+            }
+
+            // Show loading indicator
+            function showMapLoading() {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'map-loading';
+                loadingDiv.id = 'mapLoading';
+                loadingDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Fetching locations...';
+                document.getElementById('map').appendChild(loadingDiv);
+            }
+
+            // Hide loading indicator
+            function hideMapLoading() {
+                const loadingDiv = document.getElementById('mapLoading');
+                if (loadingDiv) {
+                    loadingDiv.remove();
+                }
+            }
+
+            // Geocode address and add marker
+            function geocodeAndAddMarker(property) {
+                return new Promise((resolve, reject) => {
+                    const address = `${property.address.property_address}, ${property.address.village}, ${property.address.district}, ${property.address.state}, ${property.address.pincode}, India`;
+
+                    geocoder.geocode({ address: address }, (results, status) => {
+                        if (status === 'OK' && results[0]) {
+                            const location = results[0].geometry.location;
+                            
+                            const marker = new google.maps.Marker({
+                                map: map,
+                                position: location,
+                                animation: google.maps.Animation.DROP,
+                                icon: {
+                                    path: google.maps.SymbolPath.MARKER,
+                                    fillColor: '#0066ff',
+                                    fillOpacity: 1,
+                                    strokeWeight: 0,
+                                    scale: 12
+                                }
+                            });
+
+                            const infoWindow = new google.maps.InfoWindow({
+                                content: createInfoWindowContent(property)
+                            });
+
+                            marker.addListener('click', () => {
+                                infoWindow.open(map, marker);
+                            });
+
+                            markers.push(marker);
+                            bounds.extend(location);
+                            resolve(true);
+                        } else {
+                            console.warn('Geocoding failed for address:', address);
+                            resolve(false);
+                        }
+                    });
+                });
+            }
+
+            // Modified displaySearchResults function
+            async function displaySearchResults(results) {
+                // Remove existing results if any
+                const existingResults = document.getElementById('searchResults');
+                if (existingResults) {
+                    existingResults.remove();
+                }
+
+                // Create results container
+                const resultsContainer = document.createElement('div');
+                resultsContainer.id = 'searchResults';
+                resultsContainer.className = 'mt-4';
+
+                const downloadBtn = document.getElementById('downloadPDF');
+
+                if (results.length === 0) {
+                    resultsContainer.innerHTML = `
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                            No properties found matching your search criteria.
+                        </div>
+                    `;
+                    downloadBtn.style.display = 'none';
+                } else {
+                    const resultsHTML = results.map(property => `
+                        <div class="card mb-4">
+                            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Property ID: ${property.property_id}</h5>
+                                <span class="badge bg-light text-primary">Source: ${property.data_source}</span>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary">Owner Details</h6>
+                                        <ul class="list-unstyled">
+                                            <li><strong>Name:</strong> ${property.owner_details[0].name}</li>
+                                            <li><strong>Owner Type:</strong> ${property.owner_details[0].ownership_type}</li>
+                                            <li><strong>Mobile:</strong> ${property.owner_details[0].mobile_number}</li>
+                                        </ul>
+
+                                        <h6 class="text-primary mt-3">Property Information</h6>
+                                        <ul class="list-unstyled">
+                                            <li><strong>Land Type:</strong> ${property.land_type}</li>
+                                            <li><strong>Property Type:</strong> ${property.property_type}</li>
+                                            <li><strong>Area:</strong> ${property.area_sq_ft} sq ft</li>
+                                            <li><strong>Survey Number:</strong> ${property.survey_no}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-primary">Address Details</h6>
+                                        <ul class="list-unstyled">
+                                            <li><strong>Full Address:</strong> ${property.address.property_address}</li>
+                                            <li><strong>Village:</strong> ${property.address.village}</li>
+                                            <li><strong>Taluka:</strong> ${property.address.taluka}</li>
+                                            <li><strong>District:</strong> ${property.address.district}</li>
+                                            <li><strong>State:</strong> ${property.address.state}</li>
+                                            <li><strong>Pincode:</strong> ${property.address.pincode}</li>
+                                        </ul>
+
+                                        <h6 class="text-primary mt-3">Status Information</h6>
+                                        <ul class="list-unstyled">
+                                            <li><strong>Loan Status:</strong> <span class="badge ${property.loan_status === 'Loan Active' ? 'bg-warning' : 'bg-success'}">${property.loan_status}</span></li>
+                                            <li><strong>Legal Case:</strong> <span class="badge ${property.legal_case === 'No Case' ? 'bg-success' : 'bg-danger'}">${property.legal_case}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="mt-3">
+                                    <h6 class="text-primary">Mutation History</h6>
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th>Mutation ID</th>
+                                                <th>Reason</th>
+                                                <th>Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            ${property.mutation_entry.map(entry => `
+                                                <tr>
+                                                    <td>${entry.mutation_id}</td>
+                                                    <td>${entry.reason}</td>
+                                                    <td>${entry.date}</td>
+                                                </tr>
+                                            `).join('')}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+
+                    resultsContainer.innerHTML = `
+                        <h3 class="mb-3">Search Results (${results.length} properties found)</h3>
+                        ${resultsHTML}
+                    `;
+                    
+                    // Show download button when results are available
+                    downloadBtn.style.display = 'inline-block';
+                    
+                    // Store the results in a global variable for PDF generation
+                    window.searchResults = results;
+                }
+
+                // Add results to page
+                document.querySelector('.search-form-container').appendChild(resultsContainer);
+
+                // Initialize and show map if there are results
+                if (results.length > 0) {
+                    const mapContainer = document.getElementById('mapContainer');
+                    mapContainer.style.display = 'block';
+                    
+                    initializeMap();
+                    clearMarkers();
+                    showMapLoading();
+
+                    try {
+                        const geocodingPromises = results.map(property => 
+                            new Promise(resolve => {
+                                setTimeout(() => {
+                                    geocodeAndAddMarker(property).then(resolve);
+                                }, 200);
+                            })
+                        );
+
+                        await Promise.all(geocodingPromises);
+
+                        if (markers.length > 0) {
+                            map.fitBounds(bounds);
+                            const listener = google.maps.event.addListener(map, 'idle', function() {
+                                if (map.getZoom() > 16) {
+                                    map.setZoom(16);
+                                }
+                                google.maps.event.removeListener(listener);
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Error displaying locations:', error);
+                    } finally {
+                        hideMapLoading();
+                    }
+                } else {
+                    document.getElementById('mapContainer').style.display = 'none';
+                }
+            }
+
+            // Add PDF generation function
+            document.getElementById('downloadPDF').addEventListener('click', function() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Set title
+                doc.setFontSize(16);
+                doc.text('Property Search Results', 15, 15);
+                
+                // Add search criteria
+                doc.setFontSize(12);
+                doc.text('Search Criteria:', 15, 25);
+                const searchCriteria = {
+                    State: document.getElementById('state').value || 'All',
+                    District: document.getElementById('district').value || 'All',
+                    Taluka: document.getElementById('taluka').value || 'All',
+                    Village: document.getElementById('village').value || 'All',
+                    'Property ID': document.getElementById('propertyId').value || 'N/A',
+                    'Survey No.': document.getElementById('surveyNo').value || 'N/A'
+                };
+                
+                let yPos = 30;
+                Object.entries(searchCriteria).forEach(([key, value]) => {
+                    doc.text(`${key}: ${value}`, 20, yPos);
+                    yPos += 7;
+                });
+                
+                // Add results table
+                const results = window.searchResults;
+                if (results && results.length > 0) {
+                    const tableData = results.map(property => [
+                        property.property_id,
+                        property.owner_details[0].name,
+                        property.property_type,
+                        property.area_sq_ft,
+                        `${property.address.village}, ${property.address.district}`,
+                        property.loan_status
+                    ]);
+                    
+                    doc.autoTable({
+                        startY: yPos + 5,
+                        head: [['Property ID', 'Owner', 'Type', 'Area (sq ft)', 'Location', 'Loan Status']],
+                        body: tableData,
+                        theme: 'grid',
+                        styles: { fontSize: 8 },
+                        headStyles: { fillColor: [41, 151, 255] }
+                    });
+                }
+                
+                // Add footer
+                const pageCount = doc.internal.getNumberOfPages();
+                for (let i = 1; i <= pageCount; i++) {
+                    doc.setPage(i);
+                    doc.setFontSize(8);
+                    doc.text(
+                        `Generated on ${new Date().toLocaleString()} - Page ${i} of ${pageCount}`,
+                        doc.internal.pageSize.width / 2,
+                        doc.internal.pageSize.height - 10,
+                        { align: 'center' }
+                    );
+                }
+                
+                // Save the PDF
+                doc.save('property-search-results.pdf');
+            });
+
+            // Handle form reset
+            form.addEventListener('reset', function() {
+                const inputs = form.querySelectorAll('input, select');
+                inputs.forEach(input => {
+                    input.classList.remove('is-valid', 'is-invalid');
+                });
+                currentCaptcha = generateCaptcha();
+
+                // Remove search results
+                const searchResults = document.getElementById('searchResults');
+                if (searchResults) {
+                    searchResults.remove();
+                }
+
+                // Clear map
+                clearMarkers();
+            });
+
+            // Add language change handler
+            document.getElementById('language').addEventListener('change', function(e) {
+                updateLanguage(e.target.value);
+            });
+
+            // Add data-i18n attributes to elements
+            const i18nElements = {
+                'state': 'state',
+                'district': 'district',
+                'taluka': 'taluka',
+                'village': 'village',
+                'propertyId': 'propertyId',
+                'name': 'name',
+                'surveyNo': 'surveyNo',
+                'mobileNo': 'mobileNo',
+                'language': 'selectLanguage'
+            };
+
+            // Add data-i18n attributes to labels
+            Object.entries(i18nElements).forEach(([id, key]) => {
+                const label = document.querySelector(`label[for="${id}"]`);
+                if (label) {
+                    label.setAttribute('data-i18n', key);
+                }
+            });
+
+            // Add data-i18n attributes to inputs for placeholders
+            document.getElementById('propertyId').setAttribute('data-i18n', 'enterPropertyId');
+            document.getElementById('name').setAttribute('data-i18n', 'enterName');
+            document.getElementById('surveyNo').setAttribute('data-i18n', 'enterSurveyNumber');
+            document.getElementById('mobileNo').setAttribute('data-i18n', 'enterMobileNumber');
+
+            // Add data-i18n attributes to buttons
+            document.querySelector('.btn-search').setAttribute('data-i18n', 'submit');
+            document.querySelector('.btn-reset').setAttribute('data-i18n', 'reset');
+            document.getElementById('downloadPDF').setAttribute('data-i18n', 'downloadPDF');
+
+            // Add data-i18n attributes to data sources section
+            document.querySelector('label[for="doris"]').setAttribute('data-i18n', 'doris');
+            document.querySelector('label[for="cersai"]').setAttribute('data-i18n', 'cersai');
+            document.querySelector('label[for="dlr"]').setAttribute('data-i18n', 'dlr');
+            document.querySelector('label[for="mca"]').setAttribute('data-i18n', 'mca');
+
+            // Set initial language to English
+            updateLanguage('en');
+        });
+    </script>
+    
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Login/Register Button -->
+                    <div class="text-center mb-4">
+                        <button class="btn btn-primary px-4" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="fas fa-sign-in-alt me-2"></i> LOGIN / REGISTER
+                        </button>
+                    </div>
+
+                    <!-- Profile Options -->
+                    <div class="d-grid gap-3">
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-plus-circle me-2"></i> Post Property Free</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-clipboard-list me-2"></i> Requested Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-phone-alt me-2"></i> Contacted Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-file-contract me-2"></i> Issued Properties</span>
+                        </a>
+                        <a href="#" class="btn btn-outline-primary">
+                            <span><i class="fas fa-heart me-2"></i> Shortlisted Properties</span>
+                        </a>
+                    </div>
+
+                    <!-- Signup Link -->
+                    <div class="text-center mt-4">
+                        <p class="mb-0">New to Integrated Property Search? 
+                            <a href="#" class="text-primary text-decoration-none" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                <i class="fas fa-user-plus me-1"></i>Signup
+                            </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal fade login-modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">SIGN IN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="login-form" id="loginForm">
+                        <!-- Email/Phone Input -->
+                        <div class="mb-4">
+                            <input type="text" class="form-control" id="emailPhone" placeholder="Email / Phone Number" required>
+                        </div>
+
+                        <!-- OTP Input (Initially Hidden) -->
+                        <div class="mb-4 d-none" id="otpSection">
+                            <input type="text" class="form-control otp-input" id="otp" placeholder="Enter OTP" maxlength="6">
+                            <div class="text-end mt-2">
+                                <a href="#" class="text-primary text-decoration-none" id="resendOtp">Resend OTP</a>
+                            </div>
+                        </div>
+
+                        <!-- Login/Get OTP Button -->
+                        <button type="submit" class="btn btn-primary login-btn" id="loginButton">LOGIN</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    // Add this script at the end of the body
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.getElementById('loginForm');
+        const emailPhone = document.getElementById('emailPhone');
+        const otpSection = document.getElementById('otpSection');
+        const loginButton = document.getElementById('loginButton');
+        const resendOtp = document.getElementById('resendOtp');
+        let isOtpSent = false;
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!isOtpSent) {
+                // First click - Show OTP section
+                otpSection.classList.remove('d-none');
+                loginButton.textContent = 'Verify OTP';
+                isOtpSent = true;
+                
+                // Simulate OTP sent message
+                alert('OTP has been sent to ' + emailPhone.value);
+            } else {
+                // Second click - Verify OTP
+                const otp = document.getElementById('otp').value;
+                if (otp.length === 6) {
+                    // Simulate successful login
+                    alert('Login successful!');
+                    // Close the login modal
+                    const loginModal = bootstrap.Modal.getInstance(document.getElementById('loginModal'));
+                    loginModal.hide();
+                    // Also close the profile modal
+                    const profileModal = bootstrap.Modal.getInstance(document.getElementById('profileModal'));
+                    profileModal.hide();
+                    // Reset the form
+                    resetLoginForm();
+                } else {
+                    alert('Please enter a valid 6-digit OTP');
+                }
+            }
+        });
+
+        resendOtp.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Simulate resending OTP
+            alert('New OTP has been sent to ' + emailPhone.value);
+        });
+
+        // Reset form when modal is closed
+        document.getElementById('loginModal').addEventListener('hidden.bs.modal', function () {
+            resetLoginForm();
+        });
+
+        function resetLoginForm() {
+            loginForm.reset();
+            otpSection.classList.add('d-none');
+            loginButton.textContent = 'LOGIN';
+            isOtpSent = false;
+        }
+
+        // Handle modal switching
+        const profileModal = document.getElementById('profileModal');
+        const loginModal = document.getElementById('loginModal');
+
+        loginModal.addEventListener('show.bs.modal', function () {
+            const profileModalInstance = bootstrap.Modal.getInstance(profileModal);
+            if (profileModalInstance) {
+                profileModalInstance.hide();
+            }
+        });
+    });
+    </script>
+
+    <!-- Add jsPDF library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+</body>
+</html> 

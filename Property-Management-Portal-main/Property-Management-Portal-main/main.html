@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BhuSamriddhi - Streamlining Urban & Rural Data Access">
+    <title>BhuSamriddhi</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary-color: #2997FF;
+            --secondary-color: #06c;
+            --text-color: #1d1d1f;
+            --background-light: #fbfbfd;
+            --link-color: #06c;
+            --hover-color: #147ce5;
+        }
+
+        body {
+            font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: var(--text-color);
+            background-color: var(--background-light);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        .navbar-brand {
+            transition: opacity 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            opacity: 0.8;
+        }
+
+        .nav-link {
+            color: var(--text-color) !important;
+            font-size: 0.85rem;
+            letter-spacing: -0.01em;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--link-color) !important;
+        }
+
+        /* Add spacing between icon and text in nav items */
+        .nav-link i {
+            margin-right: 8px;
+            font-size: 1rem;
+            vertical-align: middle;
+        }
+
+        /* Adjust spacing for dropdown items */
+        .dropdown-item i {
+            margin-right: 8px;
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Add spacing in navbar brand */
+        .navbar-brand i {
+            margin-right: 8px;
+        }
+
+        /* Profile button spacing */
+        .profile-btn i {
+            margin-right: 8px;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 4rem 0;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .hero-section h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 1rem;
+            color: white;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        .hero-section p.lead {
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1s ease forwards 0.3s;
+        }
+
+        .row.mt-4 {
+            margin-top: 3rem !important;
+        }
+
+        .service-card {
+            background: white;
+            border: none;
+            border-radius: 12px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            padding: 2rem;
+            max-width: 350px;
+            margin: 0 auto;
+            height: 100%;
+        }
+
+        .service-card .card-body {
+            padding: 1.5rem 1rem;
+            text-align: center;
+        }
+
+        .service-card i {
+            color: var(--primary-color);
+            transition: transform 0.3s ease;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .service-card p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card .btn {
+            padding: 0.75rem 2rem;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .service-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-card:hover i {
+            transform: scale(1.1);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--hover-color);
+            transform: translateY(-2px);
+        }
+
+        .quick-link-item {
+            display: flex;
+            align-items: center;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .quick-link-item:hover {
+            background: var(--background-light);
+            transform: translateX(5px);
+            color: var(--primary-color);
+        }
+
+        .news-card {
+            border: none;
+            border-radius: 18px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card {
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            border-radius: 18px;
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .counter {
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.95);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .animate-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.95);
+            animation: scaleIn 0.6s ease forwards;
+        }
+
+        /* Chatbot Styles */
+        .chat-container {
+            position: fixed;
+            bottom: 100px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .chat-trigger {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 70px;
+            height: 70px;
+            background: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.15);
+            z-index: 999;
+            transition: transform 0.3s ease;
+        }
+
+        .chat-trigger:hover {
+            transform: scale(1.1);
+        }
+
+        .chat-logo {
+            width: 45px;
+            height: 45px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .chat-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .chat-pulse {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: rgba(0, 102, 255, 0.1);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+            70% {
+                transform: scale(1.3);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 0;
+            }
+        }
+
+        .chat-header {
+            background: #0066ff;
+            color: white;
+            padding: 15px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            height: 380px;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .chat-input-container {
+            padding: 15px;
+            border-top: 1px solid #eee;
+            background: white;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            max-width: 80%;
+        }
+
+        .user-message {
+            margin-left: auto;
+            background: #0066ff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 15px 15px 0 15px;
+        }
+
+        .bot-message {
+            background: #f1f1f1;
+            padding: 10px 15px;
+            border-radius: 15px 15px 15px 0;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px 15px;
+            background: #f1f1f1;
+            border-radius: 15px 15px 15px 0;
+            margin-bottom: 15px;
+            width: fit-content;
+        }
+
+        .typing-indicator span {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: #666;
+            border-radius: 50%;
+            margin-right: 5px;
+            animation: typing 1s infinite;
+        }
+
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes typing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Profile Modal Styles */
+        #profileModal .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        #profileModal .modal-header {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+        }
+
+        #profileModal .modal-title {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.25rem;
+        }
+
+        #profileModal .modal-body {
+            padding: 1.5rem;
+        }
+
+        #profileModal .btn-outline-primary {
+            text-align: left;
+            padding: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        #profileModal .btn-outline-primary::after {
+            content: '→';
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        #profileModal .btn-outline-primary:hover::after {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        #profileModal .btn-outline-primary:hover {
+            background-color: #0d6efd;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.15);
+        }
+
+        #profileModal .btn-primary {
+            padding: 1rem 2.5rem;
+            font-weight: 500;
+            border-radius: 8px;
+            background: linear-gradient(to right, #0d6efd, #0b5ed7);
+            border: none;
+            box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        #profileModal .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(13, 110, 253, 0.3);
+        }
+
+        #profileModal .text-primary {
+            color: #0d6efd !important;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        #profileModal .text-primary:hover {
+            color: #0b5ed7 !important;
+            text-decoration: underline !important;
+        }
+
+        /* Login Modal Styles */
+        .login-modal .modal-content {
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .login-modal .modal-header {
+            border: none;
+            padding: 1.5rem 1.5rem 0.5rem;
+        }
+
+        .login-modal .modal-body {
+            padding: 1.5rem;
+        }
+
+        .login-modal .modal-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+            width: 100%;
+        }
+
+        .login-form .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            font-size: 1rem;
+        }
+
+        .login-form .form-control:focus {
+            border-color: #0066ff;
+            box-shadow: 0 0 0 0.2rem rgba(0,102,255,0.25);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            background: #0066ff;
+            border: none;
+            border-radius: 8px;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            background: #0052cc;
+            transform: translateY(-2px);
+        }
+
+        .otp-input {
+            letter-spacing: 0.5rem;
+            font-size: 1.25rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #666;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+        }
+
+        .popup-close:hover {
+            color: #333;
+        }
+
+        .popup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .popup-header h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+
+        .popup-form .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            font-size: 1rem;
+        }
+
+        .popup-form .form-control:focus {
+            border-color: #0066ff;
+            box-shadow: 0 0 0 0.2rem rgba(0,102,255,0.25);
+        }
+
+        .popup-btn {
+            width: 100%;
+            padding: 0.75rem;
+            font-size: 1rem;
+            font-weight: 500;
+            background: #0066ff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .popup-btn:hover {
+            background: #0052cc;
+            transform: translateY(-2px);
+        }
+
+        .otp-input {
+            letter-spacing: 0.5rem;
+            font-size: 1.25rem;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        /* Signup popup specific styles */
+        .signup-form .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .social-login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+            background: white;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-login-btn:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .social-login-btn.google {
+            color: #ea4335;
+        }
+
+        .social-login-btn.facebook {
+            color: #1877f2;
+        }
+
+        .social-login-btn.apple {
+            color: #000000;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+
+        /* Update existing styles and add new ones */
+        .popup-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-header h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .input-group-text {
+            border-radius: 8px 0 0 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .form-control {
+            border-radius: 0 8px 8px 0;
+            border: 1px solid #e0e0e0;
+        }
+
+        .bg-light {
+            background-color: #f8f9fa !important;
+        }
+
+        .social-login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-login-btn:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .divider span {
+            padding: 0 1rem;
+            color: #666;
+            font-size: 0.875rem;
+        }
+
+        /* Add smooth transition for popup */
+        .popup-overlay {
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .popup-container {
+            transition: transform 0.3s ease;
+        }
+
+        .popup-overlay[style*="display: block"] .popup-container {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .popup-overlay:not([style*="display: block"]) .popup-container {
+            transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        .static-signup-section {
+            margin-top: 2rem;
+        }
+        .static-signup-section .card {
+            border-radius: 20px;
+        }
+        .static-signup-section .input-group-text {
+            border-radius: 8px 0 0 8px;
+            border: 1px solid #e0e0e0;
+        }
+        .static-signup-section .form-control {
+            border-radius: 0 8px 8px 0;
+            border: 1px solid #e0e0e0;
+            padding: 0.75rem 1rem;
+        }
+        .static-signup-section .social-login-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        .static-signup-section .social-login-btn:hover {
+            background: #f8f9fa;
+            transform: translateY(-2px);
+        }
+        .static-signup-section .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .static-signup-section .divider::before,
+        .static-signup-section .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .static-signup-section .divider span {
+            padding: 0 1rem;
+            color: #666;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip to main content link for accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Header Section -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="#">
+                    <div class="logo-container">
+                        <img src="logo.jpg" alt="BhuSamriddhi Logo" class="logo-img">
+                    </div>
+                    <div class="brand-text ms-2">
+                        <span class="brand-name">BhuSamriddhi</span>
+                        <span class="brand-tagline">Streamlining Urban & Rural Data Access</span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <i class="fas fa-home"></i> Home
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-building"></i> Properties
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item" href="propertySearch.html"><i class="fas fa-search"></i> Search Properties</a></li>
+                                <li><a class="dropdown-item" href="property-registration.html"><i class="fas fa-file-signature"></i> Register Property</a></li>
+                                <li><a class="dropdown-item" href="property-maps.html"><i class="fas fa-map-marked-alt"></i> Property Maps</a></li>
+                                <li><a class="dropdown-item" href="market-analysis.html"><i class="fas fa-chart-area"></i> Market Analysis</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-file-alt"></i> Documents
+                            </a>
+                            <ul class="dropdown-menu animated fadeIn">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-upload"></i> Upload Documents</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-download"></i> Download Forms</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-check-circle"></i> Verify Documents</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="about-us.html">
+                                <i class="fas fa-info-circle"></i> About Us
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="nav-right d-flex align-items-center">
+                        <button class="btn profile-btn" data-bs-toggle="modal" data-bs-target="#profileModal">
+                            <i class="fas fa-user"></i> Profile
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content" class="container my-4">
+        <!-- Hero Section -->
+        <section class="hero-section text-center py-5" data-aos="fade-up">
+            <h1>Welcome to Property Management Portal</h1>
+            <p class="lead">Your one-stop solution for all property-related services</p>
+            <div class="row mt-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card h-100 service-card">
+                        <div class="card-body">
+                            <i class="fas fa-file-signature fa-3x mb-3"></i>
+                            <h3><strong>Property Registration</strong></h3>
+                            <p>Register your property online with ease</p>
+                            <a href="property-registration.html" class="btn btn-primary">Get Started</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card h-100 service-card">
+                        <div class="card-body">
+                            <i class="fas fa-search fa-3x mb-3"></i>
+                            <h3><strong>Property Search</strong></h3>
+                            <p>Search and verify property details</p>
+                            <a href="property-search-form.html" class="btn btn-primary">Search Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card h-100 service-card">
+                        <div class="card-body">
+                            <i class="fas fa-file-alt fa-3x mb-3"></i>
+                            <h3><strong>Document Center</strong></h3>
+                            <p>Access important documents and forms</p>
+                            <a href="document-center.html" class="btn btn-primary">View Documents</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Links Section -->
+        <section class="quick-links mt-5" data-aos="fade-up">
+            <h2 class="text-center mb-4">Quick Links</h2>
+            <div class="row">
+                <div class="col-md-4 col-sm-6 mb-3" data-aos="zoom-in" data-aos-delay="100">
+                    <a href="#" class="quick-link-item" data-bs-toggle="modal" data-bs-target="#landRecordsModal">
+                        <i class="fas fa-landmark"></i>
+                        <span>Land Records</span>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-3" data-aos="zoom-in" data-aos-delay="200">
+                    <a href="#" class="quick-link-item" data-bs-toggle="modal" data-bs-target="#propertyTaxModal">
+                        <i class="fas fa-file-invoice"></i>
+                        <span>Property Tax</span>
+                    </a>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-3" data-aos="zoom-in" data-aos-delay="300">
+                    <a href="#" class="quick-link-item" data-bs-toggle="modal" data-bs-target="#marketRatesModal">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Market Rates</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- News and Updates Section -->
+        <section class="news-section mt-5" data-aos="fade-up">
+            <h2 class="text-center mb-4">News & Updates</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4" data-aos="fade-right">
+                    <div class="card news-card">
+                        <div class="card-body">
+                            <h5 class="card-title">New Property Tax Guidelines</h5>
+                            <p class="card-text">Updated property tax calculation methods effective from next month.</p>
+                            <a href="#" class="btn btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4" data-aos="fade-left">
+                    <div class="card news-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Online Document Verification</h5>
+                            <p class="card-text">New feature for instant document verification launched.</p>
+                            <a href="#" class="btn btn-outline-primary">Read More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Statistics Section -->
+        <section class="stats-section mt-5" data-aos="fade-up">
+            <div class="row text-center">
+                <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="stat-card">
+                        <i class="fas fa-users fa-3x mb-3"></i>
+                        <h3 class="counter">1,234,567</h3>
+                        <p>Registered Users</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="stat-card">
+                        <i class="fas fa-file-alt fa-3x mb-3"></i>
+                        <h3 class="counter">89,123</h3>
+                        <p>Properties Registered</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="stat-card">
+                        <i class="fas fa-check-circle fa-3x mb-3"></i>
+                        <h3 class="counter">45,678</h3>
+                        <p>Verified Documents</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6 mb-4" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="stat-card">
+                        <i class="fas fa-clock fa-3x mb-3"></i>
+                        <h3 class="counter">24/7</h3>
+                        <p>Support Available</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section mt-5" data-aos="fade-up">
+            <h2 class="text-center mb-4">Frequently Asked Questions</h2>
+            <div class="accordion" id="faqAccordion">
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                            How do I register my property?
+                        </button>
+                    </h3>
+                    <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            You can register your property by following these steps: 1) Create an account, 2) Fill the registration form, 3) Upload required documents, 4) Pay the registration fee, 5) Schedule an appointment for verification.
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                            What documents are required for property registration?
+                        </button>
+                    </h3>
+                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Required documents include: 1) Property deed, 2) Identity proof, 3) Address proof, 4) Property tax receipts, 5) NOC from relevant authorities.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5 class="mb-2">Contact Us</h5>
+                    <p class="mb-1"><i class="fas fa-phone me-2"></i>+91-XXX-XXXX-XXXX</p>
+                    <p class="mb-1"><i class="fas fa-envelope me-2"></i>support@property.gov.in</p>
+                    <p class="mb-1"><i class="fas fa-map-marker-alt me-2"></i>Government Office, New Delhi</p>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-2">Important Links</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li class="mb-1"><a href="privacy-policy.html" target="_self">Privacy Policy</a></li>
+                        <li class="mb-1"><a href="terms-of-service.html" target="_self">Terms of Service</a></li>
+                        <li class="mb-1"><a href="accessibility-statement.html" target="_self">Accessibility Statement</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5 class="mb-2">Follow Us</h5>
+                    <div class="social-links mb-2">
+                        <a href="#" class="text-light me-2" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-light me-2" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-light me-2" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                    <div class="mt-2">
+                        <h5 class="mb-2">Subscribe to Newsletter</h5>
+                        <form class="newsletter-form">
+                            <div class="input-group">
+                                <input type="email" class="form-control" placeholder="Enter your email">
+                                <button class="btn btn-primary" type="submit">Subscribe</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="btn btn-primary back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Counter Up Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js"></script>
+    <!-- Custom JS -->
+    <script src="script.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize animations for sections
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe all animated elements
+            document.querySelectorAll('.section-card, .value-card, .team-member').forEach(element => {
+                observer.observe(element);
+            });
+
+            // Handle navbar background on scroll
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Add parallax effect to hero section
+            const heroSection = document.querySelector('.hero-section');
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+                heroSection.style.opacity = 1 - (scrolled * 0.003);
+            });
+
+            // Add hover effect for interactive elements
+            const interactiveElements = document.querySelectorAll('.btn, .nav-link');
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        });
+    </script>
+
+    <!-- Profile Modal -->
+    <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title" id="profileModalLabel">My Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <h3 class="mb-4">My Profile</h3>
+                    <button class="btn btn-primary w-75 mb-4" onclick="openLoginRegisterModal()">
+                            <i class="fas fa-sign-in-alt me-2"></i> LOGIN / REGISTER
+                        </button>
+
+                    <div class="d-grid gap-3 px-3">
+                        <a href="#" class="btn btn-outline-primary text-start">
+                            <i class="fas fa-plus-circle me-2"></i> Post Property Free
+                        </a>
+                        <a href="#" class="btn btn-outline-primary text-start">
+                            <i class="fas fa-clipboard-list me-2"></i> Requested Properties
+                        </a>
+                        <a href="#" class="btn btn-outline-primary text-start">
+                            <i class="fas fa-phone-alt me-2"></i> Contacted Properties
+                        </a>
+                        <a href="#" class="btn btn-outline-primary text-start">
+                            <i class="fas fa-file-contract me-2"></i> Issued Properties
+                        </a>
+                        <a href="#" class="btn btn-outline-primary text-start">
+                            <i class="fas fa-heart me-2"></i> Shortlisted Properties
+                        </a>
+                                </div>
+
+                    <div class="mt-4">
+                        <p class="mb-0">New to BhuSamriddhi? 
+                            <a href="#" class="text-primary text-decoration-none" onclick="openSignupModal()">
+                                        <i class="fas fa-user-plus me-1"></i>Signup
+                                    </a>
+                                </p>
+                    </div>
+                </div>
+                            </div>
+                        </div>
+                    </div>
+
+    <!-- Signup Modal -->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                <div class="modal-body p-4">
+                    <div class="text-center mb-4">
+                                <h2 class="mb-2">Welcome to BhuSamriddhi</h2>
+                        <p class="text-muted">Please sign in to continue</p>
+                            </div>
+
+                    <form id="signupModalForm">
+                        <div class="form-group mb-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0">
+                                            <i class="fas fa-envelope text-muted"></i>
+                                        </span>
+                                        <input type="text" class="form-control bg-light border-start-0" placeholder="Enter email / phone no." required>
+                                    </div>
+                                </div>
+
+                        <div class="form-group mb-3">
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light border-end-0">
+                                            <i class="fas fa-lock text-muted"></i>
+                                        </span>
+                                        <input type="password" class="form-control bg-light border-start-0" placeholder="Create password" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-end mb-3">
+                            <a href="#" class="text-decoration-none text-primary">Forget your password?</a>
+                                </div>
+
+                        <button type="submit" class="btn btn-primary w-100 mb-3">Log In</button>
+
+                                <div class="divider">
+                                    <span>Or</span>
+                                </div>
+
+                        <button type="button" class="btn btn-outline-dark w-100 mb-3">
+                            <i class="fab fa-apple me-2"></i> Continue with Apple
+                                </button>
+
+                        <button type="button" class="btn btn-outline-danger w-100 mb-3">
+                            <img src="https://img.icons8.com/color/24/000000/google-logo.png" class="me-2"> Continue with Google
+                                </button>
+
+                        <button type="button" class="btn btn-outline-primary w-100 mb-3">
+                            <i class="fab fa-facebook me-2"></i> Continue with Facebook
+                                </button>
+
+                                <div class="text-center mt-4">
+                            <p class="mb-0">Need to create an account? <a href="#" class="text-primary text-decoration-none">Sign Up</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+        </div>
+    </div>
+
+    <style>
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .modal-body {
+            padding: 2rem;
+        }
+        .input-group-text {
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-right: none;
+        }
+        .form-control {
+            border-left: none;
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #ced4da;
+        }
+        .btn-primary {
+            background-color: #6c63ff;
+            border-color: #6c63ff;
+        }
+        .btn-primary:hover {
+            background-color: #5a52e0;
+            border-color: #5a52e0;
+        }
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .divider span {
+            padding: 0 1rem;
+            color: #6c757d;
+            font-size: 0.875rem;
+        }
+        .btn-outline-dark:hover,
+        .btn-outline-danger:hover,
+        .btn-outline-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+    </style>
+
+    <script>
+        function openSignupModal() {
+            $('#profileModal').modal('hide');
+            $('#signupModal').modal('show');
+        }
+    </script>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,hi,mr', // English, Hindi, Marathi
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+                autoDisplay: false,
+                multilanguagePage: true
+            }, 'google_translate_element');
+        }
+
+        // Function to trigger translation
+        function changeLanguage(languageCode) {
+            var select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = languageCode;
+                select.dispatchEvent(new Event('change'));
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Add hidden Google Translate element -->
+    <div id="google_translate_element" style="display: none;"></div>
+
+    <!-- Chatbot Integration -->
+    <div class="chat-trigger" onclick="toggleChat()">
+        <div class="chat-logo">
+            <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="Chatbot Logo">
+        </div>
+        <div class="chat-pulse"></div>
+    </div>
+
+    <!-- Chat Container -->
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-header">
+            <span>Property Assistant</span>
+            <i class="fas fa-times" onclick="toggleChat()" style="cursor: pointer;"></i>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="typing-indicator" id="typingIndicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <div class="chat-input-container">
+            <div class="chat-input">
+                <input type="text" class="form-control" id="userInput" placeholder="Type your message...">
+                <button class="btn btn-primary" onclick="sendMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add before closing body tag -->
+    <script src="propertyService.js"></script>
+    <script src="chatbot.js"></script>
+
+    <!-- Add this script before the closing body tag -->
+    <script>
+    function openLoginPopup() {
+        document.getElementById('loginPopup').style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent scrolling when popup is open
+    }
+
+    function closeLoginPopup() {
+        document.getElementById('loginPopup').style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+        resetLoginForm();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const loginForm = document.getElementById('loginForm');
+        const emailPhone = document.getElementById('emailPhone');
+        const otpSection = document.getElementById('otpSection');
+        const loginButton = document.getElementById('loginButton');
+        const resendOtp = document.getElementById('resendOtp');
+        let isOtpSent = false;
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!isOtpSent) {
+                // First click - Show OTP section
+                otpSection.classList.remove('d-none');
+                loginButton.textContent = 'Verify OTP';
+                isOtpSent = true;
+                
+                // Simulate OTP sent message
+                alert('OTP has been sent to ' + emailPhone.value);
+            } else {
+                // Second click - Verify OTP
+                const otp = document.getElementById('otp').value;
+                if (otp.length === 6) {
+                    // Simulate successful login
+                    alert('Login successful!');
+                    closeLoginPopup();
+                    location.reload(); // Refresh the page after successful login
+                } else {
+                    alert('Please enter a valid 6-digit OTP');
+                }
+            }
+        });
+
+        resendOtp.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Simulate resending OTP
+            alert('New OTP has been sent to ' + emailPhone.value);
+        });
+
+        // Handle signup link
+        document.getElementById('signupLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            switchToSignup(e);
+        });
+
+        // Close popup when clicking outside
+        document.getElementById('loginPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeLoginPopup();
+            }
+        });
+
+        function resetLoginForm() {
+            loginForm.reset();
+            otpSection.classList.add('d-none');
+            loginButton.textContent = 'LOGIN';
+            isOtpSent = false;
+        }
+    });
+
+    // Add these new functions
+    function openSignupPopup() {
+        closeLoginPopup(); // Close login popup if open
+        document.getElementById('signupPopup').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeSignupPopup() {
+        document.getElementById('signupPopup').style.display = 'none';
+        document.body.style.overflow = '';
+        document.getElementById('signupForm').reset();
+    }
+
+    function switchToLogin(e) {
+        e.preventDefault();
+        closeSignupPopup();
+        openLoginPopup();
+    }
+
+    function switchToSignup(e) {
+        e.preventDefault();
+        closeLoginPopup();
+        openSignupPopup();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add this to your existing DOMContentLoaded listener
+        const signupForm = document.getElementById('signupForm');
+        
+        // Update signup link click handler
+        document.getElementById('signupLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            switchToSignup(e);
+        });
+
+        // Handle signup form submission
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // Simulate signup success
+            alert('Sign up successful! Please check your email/phone for verification.');
+            closeSignupPopup();
+            location.reload();
+        });
+
+        // Close signup popup when clicking outside
+        document.getElementById('signupPopup').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSignupPopup();
+            }
+        });
+    });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize animations for sections
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            // Observe all animated elements
+            document.querySelectorAll('.section-card, .value-card, .team-member').forEach(element => {
+                observer.observe(element);
+            });
+
+            // Handle navbar background on scroll
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Add parallax effect to hero section
+            const heroSection = document.querySelector('.hero-section');
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                heroSection.style.transform = `translateY(${scrolled * 0.5}px)`;
+                heroSection.style.opacity = 1 - (scrolled * 0.003);
+            });
+
+            // Add hover effect for interactive elements
+            const interactiveElements = document.querySelectorAll('.btn, .nav-link');
+            interactiveElements.forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                    this.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+                });
+                element.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+        });
+    });
+    </script>
+
+    <!-- Land Records Modal -->
+    <div class="modal fade" id="landRecordsModal" tabindex="-1" aria-labelledby="landRecordsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="landRecordsModalLabel">State-wise Land Records Portals</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <a href="https://bhulekh.mahabhumi.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Maharashtra
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://igrsup.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Uttar Pradesh
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://landrecords.karnataka.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Karnataka
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://jamabandi.nic.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Punjab
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://dharani.telangana.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Telangana
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://rajasland.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Rajasthan
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://mpbhulekh.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Madhya Pradesh
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://bhumijankari.bihar.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Bihar
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://anyror.gujarat.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Gujarat
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://jamabandi.nic.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Haryana
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+    .list-group-item {
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
+    
+    .list-group-item:hover {
+        background-color: #f8f9fa;
+        border-left: 4px solid #2997FF;
+        transform: translateX(5px);
+    }
+    
+    .list-group-item i {
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+    
+    .list-group-item:hover i {
+        opacity: 1;
+    }
+    </style>
+
+    <!-- Property Tax Modal -->
+    <div class="modal fade" id="propertyTaxModal" tabindex="-1" aria-labelledby="propertyTaxModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="propertyTaxModalLabel">City-wise Property Tax Portals</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <a href="https://www.mcgm.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Mumbai (MCGM)
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://mcdonline.nic.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Delhi (MCD)
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://bbmptax.karnataka.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Bengaluru (BBMP)
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://www.ghmc.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Hyderabad (GHMC)
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://www.chennaicorporation.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Chennai
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://www.kmcgov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Kolkata (KMC)
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://www.pmc.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Pune (PMC)
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://ahmedabadcity.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Ahmedabad (AMC)
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://jaipurmc.org/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Jaipur (JMC)
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://lmc.up.nic.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Lucknow (LMC)
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Market Rates Modal -->
+    <div class="modal fade" id="marketRatesModal" tabindex="-1" aria-labelledby="marketRatesModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="marketRatesModalLabel">State-wise Property Market Rate Portals</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <a href="https://landrecords.karnataka.gov.in/guidancevalue/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Karnataka Guidance Value
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://igrsup.gov.in/guidanceValue.aspx" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            UP Guidance Value
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://dharani.telangana.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Telangana Market Value
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://igrmaharashtra.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Maharashtra Ready Reckoner
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://www.tnreginet.net/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Tamil Nadu Guideline Value
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://punjab.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Punjab Collector Rates
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://tcpharyana.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Haryana Collector Rates
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://revenue.rajasthan.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Rajasthan Circle Rates
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://gujaratindia.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Gujarat Jantri Rates
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                        <a href="https://www.registration.kerala.gov.in/" target="_blank" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Kerala Fair Value
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
